@@ -9,9 +9,11 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::prefix('/dashboard')->middleware(['auth', 'verified'])->group(function () {
-    Route::get('/staff', [StaffController::class, 'index'])->name('staff.index');
-    Route::get('/staff/create', [StaffController::class, 'create'])->name('staff.create');
-    Route::post('/staff/store', [StaffController::class, 'store'])->name('staff.store');
+    Route::get('/staffs', [StaffController::class, 'index'])->name('staffs.index');
+    Route::get('/staffs/create', [StaffController::class, 'create'])->name('staffs.create');
+    Route::post('/staffs', [StaffController::class, 'store'])->name('staffs.store');
+    Route::delete('/staffs/{idStaff}', [StaffController::class, 'destroy'])
+        ->name('staffs.destroy');
 });
 
 Route::middleware('auth')->group(function () {

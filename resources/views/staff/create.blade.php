@@ -6,7 +6,7 @@
     </x-slot>
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-6">
-        <form method="POST" action="{{ route('staff.store') }}">
+        <form method="POST" action="{{ route('staffs.store') }}">
             @csrf
             <!-- Name -->
             <div>

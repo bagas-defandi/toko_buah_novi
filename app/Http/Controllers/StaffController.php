@@ -43,6 +43,13 @@ class StaffController extends Controller
             'password' => bcrypt($request->password),
         ])->assignRole('staff');
 
-        return to_route('staff.index')->with('pesan', "Staff {$request->name} berhasil ditambah");
+        return to_route('staffs.index')->with('pesan', "Staff {$request->name} berhasil ditambah");
+    }
+
+    public function destroy($idStaff)
+    {
+        $user = User::find($idStaff);
+        $user->delete();
+        return to_route('staffs.index')->with('pesan', "Staff {$user->name} berhasil dihapus");
     }
 }
