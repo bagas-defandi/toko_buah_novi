@@ -21,13 +21,20 @@
                             </li>
                         </ul>
                         <ul class="navbar-nav">
-                            <li class="nav-item active">
-                                <a class="nav-link" href="{{ route('login') }}">Login<span
-                                        class="sr-only">(current)</span></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">Daftar</a>
-                            </li>
+                            @auth()
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="{{ route('dashboard') }}">Dashboard<span
+                                            class="sr-only">(current)</span></a>
+                                </li>
+                            @else
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="{{ route('login') }}">Login<span
+                                            class="sr-only">(current)</span></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('register') }}">Daftar</a>
+                                </li>
+                            @endauth
                         </ul>
                     </div>
                 </div>
