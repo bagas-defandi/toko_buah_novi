@@ -22,6 +22,12 @@
                         {{ __('Staff Anda') }}
                     </x-nav-link>
                 </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('buahs.index')" :active="request()->routeIs('buahs.index')">
+                        {{ __('Buah') }}
+                    </x-nav-link>
+                </div>
             </div>
 
             <!-- Settings Dropdown -->
@@ -89,6 +95,12 @@
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('staffs.index')" :active="request()->routeIs('staffs.index')">
                 {{ __('Staff Anda') }}
+            </x-responsive-nav-link>
+        </div>
+
+        <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link :href="route('buahs.index')" :active="request()->routeIs('buahs.index')">
+                {{ __('Buah Anda') }}
             </x-responsive-nav-link>
         </div>
 
