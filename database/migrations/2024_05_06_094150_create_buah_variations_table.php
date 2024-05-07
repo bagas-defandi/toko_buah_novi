@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('harga');
             $table->integer('jumlah_berat');
             $table->enum('berat', ['gr', 'kg']);
+            $table->integer('stok');
             $table->foreignId('buah_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });

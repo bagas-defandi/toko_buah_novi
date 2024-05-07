@@ -15,6 +15,7 @@ class Buah extends Model
         'harga',
         'jumlah_berat',
         'berat',
+        'stok',
         'gambar',
     ];
 

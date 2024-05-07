@@ -22,6 +22,7 @@ class BuahController extends Controller
         $valid = $request->validate([
             'nama' => ['required', 'string', 'max:255'],
             'harga' => ['required', 'numeric'],
+            'stok' => ['required', 'numeric'],
             'jumlah_berat' => ['required', 'numeric', 'max:1000'],
             'berat' => ['required', 'in:kg,gr'],
             'gambar' => 'required|file|image|max:5000'
@@ -34,6 +35,7 @@ class BuahController extends Controller
         Buah::create([
             'nama' => $valid['nama'],
             'harga' => $valid['harga'],
+            'stok' => $valid['stok'],
             'jumlah_berat' => $valid['jumlah_berat'],
             'berat' => $valid['berat'],
             'gambar' => 'storage/images/' . $namaFile,

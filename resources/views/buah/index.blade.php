@@ -54,6 +54,7 @@
                                     <th scope="col" class="px-6 py-4">Nama Buah</th>
                                     <th scope="col" class="px-6 py-4">Gambar</th>
                                     <th scope="col" class="px-6 py-4">Harga</th>
+                                    <th scope="col" class="px-6 py-4">Stok</th>
                                     <th scope="col" class="px-6 py-4">Aksi</th>
                                 </tr>
                             </thead>
@@ -69,6 +70,9 @@
                                                 src="{{ asset($buah->gambar) }}" alt="{{ $buah->nama }}"></td>
                                         <td class="whitespace-nowrap px-6 py-4">
                                             {{ "Rp. {$harga} = Per {$buah->jumlah_berat}/{$buah->berat}" }}
+                                        </td>
+                                        <td class="whitespace-nowrap px-6 py-4">
+                                            {{ "{$buah->stok} {$buah->berat}" }}
                                         </td>
                                         <td class="whitespace-nowrap px-6 py-4">
                                             @php

@@ -19,6 +19,7 @@ class DummyBuahSeeder extends Seeder
             'harga' => 50000,
             'jumlah_berat' => 1,
             'berat' => 'kg',
+            'stok' => 7,
         ]);
     }
 }

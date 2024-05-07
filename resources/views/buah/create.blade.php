@@ -13,7 +13,7 @@
             <div class="mt-4">
                 <x-input-label for="nama" :value="__('Nama')" />
                 <x-text-input id="nama" class="block mt-1 w-full" type="text" name="nama" :value="old('nama')"
-                    required autocomplete="username" />
+                    required autocomplete="nama" />
                 <x-input-error :messages="$errors->get('nama')" class="mt-2" />
             </div>
 
@@ -21,7 +21,7 @@
             <div class="mt-4">
                 <x-input-label for="harga" :value="__('Harga')" />
                 <x-text-input id="harga" class="block mt-1 w-full" type="text" name="harga" :value="old('harga')"
-                    required autocomplete="username" />
+                    required autocomplete="harga" />
                 <x-input-error :messages="$errors->get('harga')" class="mt-2" />
             </div>
 
@@ -43,7 +43,14 @@
                         <x-input-error :messages="$errors->get('berat')" class="mt-2" />
                     </div>
                 </div>
+            </div>
 
+            <!-- Stok -->
+            <div class="mt-4">
+                <x-input-label for="stok" :value="__('Stok')" />
+                <x-text-input id="stok" class="block mt-1 w-full" type="text" name="stok" :value="old('stok')"
+                    required autocomplete="stok" />
+                <x-input-error :messages="$errors->get('stok')" class="mt-2" />
             </div>
 
             <!-- Gambar -->
