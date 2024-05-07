@@ -22,7 +22,7 @@
                     'text-base',
                     'leading-5',
                     'text-white',
-                    'bg-green-500' => $lastWord == 'ditambah',
+                    'bg-green-500' => $lastWord == 'ditambah' || $lastWord == 'diubah',
                     'bg-red-500' => $lastWord == 'dihapus',
                     'rounded-lg',
                     'opacity-100',
@@ -79,12 +79,17 @@
                                                 $modalName = "confirm-buah-deletion{$loop->iteration}";
                                                 $openModalName = "\$dispatch('open-modal', '$modalName')";
                                             @endphp
+                                            <a href="{{ route('buahs.edit', $buah) }}"
+                                                class="mr-3 inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-500 active:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150'">
+                                                Edit
+                                            </a>
                                             <x-danger-button x-data=""
                                                 x-on:click.prevent="{{ $openModalName }}">
                                                 {{ __('Hapus') }}
                                             </x-danger-button>
                                             <x-modal name="{{ $modalName }}">
-                                                <form method="post" action="" class="p-6">
+                                                <form method="post" action="{{ route('buahs.destroy', $buah) }}"
+                                                    class="p-6">
                                                     @csrf
                                                     @method('delete')
 

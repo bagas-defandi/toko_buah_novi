@@ -1,18 +1,21 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Tambah Buah') }}
+            {{ __("Edit Buah \"{$buah->nama}\"") }}
         </h2>
     </x-slot>
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-6">
-        <form method="POST" action="{{ route('buahs.store') }}" enctype="multipart/form-data">
+        <img style="height: 300px" class="center mx-auto" src="{{ asset($buah->gambar) }}" alt="{{ $buah->nama }}">
+        <form method="POST" action="{{ route('buahs.update', $buah) }}" enctype="multipart/form-data">
             @csrf
+            @method('PUT')
 
             <!-- Nama -->
             <div class="mt-4">
                 <x-input-label for="nama" :value="__('Nama')" />
-                <x-text-input id="nama" class="block mt-1 w-full" type="text" name="nama" :value="old('nama')"
+                @php  $nama = old('nama') ?? $buah->nama; @endphp
+                <x-text-input id="nama" class="block mt-1 w-full" type="text" name="nama" :value="$nama"
                     required autocomplete="nama" />
                 <x-input-error :messages="$errors->get('nama')" class="mt-2" />
             </div>
@@ -20,7 +23,8 @@
             <!-- Harga -->
             <div class="mt-4">
                 <x-input-label for="harga" :value="__('Harga')" />
-                <x-text-input id="harga" class="block mt-1 w-full" type="text" name="harga" :value="old('harga')"
+                @php  $harga = old('harga') ?? $buah->harga; @endphp
+                <x-text-input id="harga" class="block mt-1 w-full" type="text" name="harga" :value="$harga"
                     required autocomplete="harga" />
                 <x-input-error :messages="$errors->get('harga')" class="mt-2" />
             </div>
@@ -30,8 +34,9 @@
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <x-input-label for="jumlah_berat" :value="__('Jumlah Berat')" />
+                        @php  $jumlah_berat = old('jumlah_berat') ?? $buah->jumlah_berat; @endphp
                         <x-text-input id="jumlah_berat" class="block mt-1 w-full" type="text" name="jumlah_berat"
-                            :value="old('jumlah_berat')" required autocomplete="jumlah_berat" />
+                            :value="$jumlah_berat" required autocomplete="jumlah_berat" />
                         <x-input-error :messages="$errors->get('jumlah_berat')" class="mt-2" />
                     </div>
                     <div>
@@ -48,7 +53,8 @@
             <!-- Stok -->
             <div class="mt-4">
                 <x-input-label for="stok" :value="__('Stok')" />
-                <x-text-input id="stok" class="block mt-1 w-full" type="text" name="stok" :value="old('stok')"
+                @php  $stok = old('stok') ?? $buah->stok; @endphp
+                <x-text-input id="stok" class="block mt-1 w-full" type="text" name="stok" :value="$stok"
                     required autocomplete="stok" />
                 <x-input-error :messages="$errors->get('stok')" class="mt-2" />
             </div>
@@ -66,7 +72,7 @@
 
             <div class="flex items-center mt-4">
                 <x-primary-button class="">
-                    {{ __('Tambah') }}
+                    {{ __('Edit') }}
                 </x-primary-button>
             </div>
         </form>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Buah;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class BuahController extends Controller
 {
@@ -19,7 +20,7 @@ class BuahController extends Controller
 
     public function store(Request $request)
     {
-        $valid = $request->validate([
+        $validateData = $request->validate([
             'nama' => ['required', 'string', 'max:255'],
             'harga' => ['required', 'numeric'],
             'stok' => ['required', 'numeric'],
@@ -28,19 +29,53 @@ class BuahController extends Controller
             'gambar' => 'required|file|image|max:5000'
         ]);
 
+        // Agar nama file berbeda
         $oriFileName = preg_replace('/\s+/', '-', $request->gambar->getClientOriginalName());
-        $namaFile = 'TBN-' . time() . $oriFileName;
+        $namaFile = 'TBN-' . time() . '-' . $oriFileName;
         $request->gambar->storeAs('public/images', $namaFile);
 
-        Buah::create([
-            'nama' => $valid['nama'],
-            'harga' => $valid['harga'],
-            'stok' => $valid['stok'],
-            'jumlah_berat' => $valid['jumlah_berat'],
-            'berat' => $valid['berat'],
-            'gambar' => 'storage/images/' . $namaFile,
+        $validateData['gambar'] = 'storage/images/' . $namaFile;
+        Buah::create($validateData);
+
+        return to_route('buahs.index')->with('pesan', "Buah \"{$request->nama}\" berhasil ditambah");
+    }
+
+    public function edit(Buah $buah)
+    {
+        return view('buah.edit', compact('buah'));
+    }
+
+    public function update(Request $request, Buah $buah)
+    {
+        $validateData = $request->validate([
+            'nama' => ['required', 'string', 'max:255'],
+            'harga' => ['required', 'numeric'],
+            'stok' => ['required', 'numeric'],
+            'jumlah_berat' => ['required', 'numeric', 'max:1000'],
+            'berat' => ['required', 'in:kg,gr'],
+            'gambar' => 'file|image|max:5000',
         ]);
 
-        return to_route('buahs.index')->with('pesan', "Buah {$request->nama} berhasil ditambah");
+        if (isset($request->gambar)) {
+            // Gambar di simpan dlm format -> storage/images/namaImg.jpg
+            // Untuk menghapus gambar yang disimpan kata "storage" harus dihapus maka menjadi /images/namaImg.jpg
+            Storage::delete('public' . substr($buah->gambar, 7));
+            $oriFileName = preg_replace('/\s+/', '-', $request->gambar->getClientOriginalName());
+            $namaFile = 'TBN-' . time() . '-' . $oriFileName;
+            $request->gambar->storeAs('public/images', $namaFile);
+
+            $validateData['gambar'] = 'storage/images/' . $namaFile;
+        }
+
+        Buah::where('id', $buah->id)->update($validateData);
+
+        return to_route('buahs.index')->with('pesan', "Buah \"{$request->nama}\" berhasil diubah");
+    }
+
+    public function destroy(Buah $buah)
+    {
+        Storage::delete('public' . substr($buah->gambar, 7));
+        $buah->delete();
+        return to_route('buahs.index')->with('pesan', "Buah \"{$buah->nama}\" berhasil dihapus");
     }
 }
