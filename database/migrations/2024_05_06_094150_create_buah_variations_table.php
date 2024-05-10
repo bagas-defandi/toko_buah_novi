@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('buah_variations', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->string('gambar');
             $table->integer('harga');
             $table->integer('jumlah_berat');
             $table->enum('berat', ['gr', 'kg']);

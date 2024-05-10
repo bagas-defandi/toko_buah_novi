@@ -16,9 +16,9 @@ return new class extends Migration
             $table->string('nama');
             $table->string('gambar');
             $table->integer('harga')->nullable();
-            $table->integer('jumlah_berat');
+            $table->integer('jumlah_berat')->nullable();
             $table->enum('berat', ['gr', 'kg']);
-            $table->integer('stok');
+            $table->integer('stok')->nullable();
             $table->timestamps();
         });
     }

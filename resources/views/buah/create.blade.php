@@ -5,33 +5,48 @@
         </h2>
     </x-slot>
 
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-6">
+    <div x-data="{ withVariation: '{{ old('with_variation') ?? 'tidak' }}', }" class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-6">
         <form method="POST" action="{{ route('buahs.store') }}" enctype="multipart/form-data">
             @csrf
+
+            <div class="mt-4">
+                <p class="text-xl font-medium text-gray-900 dark:text-gray-300">
+                    Apakah buah ini memiliki variasi?
+                </p>
+                <label for="ya" class="dark:text-white">Ya</label>
+                <input id="ya" type="radio" x-model="withVariation" name="with_variation" value="ya"
+                    @checked(old('with_variation') == 'ya')
+                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+
+                <label for="tidak" class="ml-3 dark:text-white">Tidak</label>
+                <input id="tidak" type="radio" x-model="withVariation" name="with_variation" value="tidak"
+                    @checked(old('with_variation') == 'tidak')
+                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+            </div>
 
             <!-- Nama -->
             <div class="mt-4">
                 <x-input-label for="nama" :value="__('Nama')" />
                 <x-text-input id="nama" class="block mt-1 w-full" type="text" name="nama" :value="old('nama')"
-                    required autocomplete="nama" />
+                    autocomplete="nama" />
                 <x-input-error :messages="$errors->get('nama')" class="mt-2" />
             </div>
 
             <!-- Harga -->
-            <div class="mt-4">
+            <div class="mt-4" x-show="withVariation == 'tidak'">
                 <x-input-label for="harga" :value="__('Harga')" />
                 <x-text-input id="harga" class="block mt-1 w-full" type="text" name="harga" :value="old('harga')"
-                    required autocomplete="harga" />
+                    autocomplete="harga" />
                 <x-input-error :messages="$errors->get('harga')" class="mt-2" />
             </div>
 
             <!-- Berat -->
-            <div class="mt-4">
+            <div class="mt-4" x-show="withVariation == 'tidak'">
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <x-input-label for="jumlah_berat" :value="__('Jumlah Berat')" />
                         <x-text-input id="jumlah_berat" class="block mt-1 w-full" type="text" name="jumlah_berat"
-                            :value="old('jumlah_berat')" required autocomplete="jumlah_berat" />
+                            :value="old('jumlah_berat')" autocomplete="jumlah_berat" />
                         <x-input-error :messages="$errors->get('jumlah_berat')" class="mt-2" />
                     </div>
                     <div>
@@ -46,10 +61,10 @@
             </div>
 
             <!-- Stok -->
-            <div class="mt-4">
+            <div class="mt-4" x-show="withVariation == 'tidak'">
                 <x-input-label for="stok" :value="__('Stok')" />
                 <x-text-input id="stok" class="block mt-1 w-full" type="text" name="stok" :value="old('stok')"
-                    required autocomplete="stok" />
+                    autocomplete="stok" />
                 <x-input-error :messages="$errors->get('stok')" class="mt-2" />
             </div>
 

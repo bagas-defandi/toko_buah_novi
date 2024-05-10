@@ -20,14 +20,21 @@ class BuahController extends Controller
 
     public function store(Request $request)
     {
-        $validateData = $request->validate([
-            'nama' => ['required', 'string', 'max:255'],
-            'harga' => ['required', 'numeric'],
-            'stok' => ['required', 'numeric'],
-            'jumlah_berat' => ['required', 'numeric', 'max:1000'],
-            'berat' => ['required', 'in:kg,gr'],
-            'gambar' => 'required|file|image|max:5000'
-        ]);
+        if ($request->with_variation == 'ya') {
+            $validateData = $request->validate([
+                'nama' => ['required', 'string', 'max:255'],
+                'gambar' => 'required|file|image|max:5000',
+            ]);
+        } else {
+            $validateData = $request->validate([
+                'nama' => ['required', 'string', 'max:255'],
+                'harga' => ['required', 'numeric'],
+                'stok' => ['required', 'numeric'],
+                'jumlah_berat' => ['required', 'numeric', 'max:1000'],
+                'berat' => ['required', 'in:kg,gr'],
+                'gambar' => 'required|file|image|max:5000'
+            ]);
+        }
 
         // Agar nama file berbeda
         $oriFileName = preg_replace('/\s+/', '-', $request->gambar->getClientOriginalName());

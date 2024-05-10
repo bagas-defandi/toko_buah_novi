@@ -66,14 +66,23 @@
                                     <tr class="border-b border-neutral-200 dark:border-white/10">
                                         <td class="whitespace-nowrap px-6 py-4 font-medium">{{ $loop->iteration }}</td>
                                         <td class="whitespace-nowrap px-6 py-4">{{ $buah->nama }}</td>
-                                        <td class="whitespace-nowrap px-6 py-4"><img style="height: 100px; width: 100px"
-                                                src="{{ asset($buah->gambar) }}" alt="{{ $buah->nama }}"></td>
                                         <td class="whitespace-nowrap px-6 py-4">
-                                            {{ "Rp. {$harga} = Per {$buah->jumlah_berat}/{$buah->berat}" }}
+                                            <img style="height: 100px; width: 100px" src="{{ asset($buah->gambar) }}"
+                                                alt="{{ $buah->nama }}">
+
                                         </td>
-                                        <td class="whitespace-nowrap px-6 py-4">
-                                            {{ "{$buah->stok} {$buah->berat}" }}
-                                        </td>
+                                        @if (isset($buah->harga))
+                                            <td class="whitespace-nowrap px-6 py-4">
+                                                {{ "Rp. {$harga} = Per {$buah->jumlah_berat}/{$buah->berat}" }}
+                                            </td>
+                                            <td class="whitespace-nowrap px-6 py-4">
+                                                {{ "{$buah->stok} {$buah->berat}" }}
+                                            </td>
+                                        @else
+                                            <td class="text-center" colspan="2">
+                                                Buah ini memiliki 0 variasi. Lihat Disini
+                                            </td>
+                                        @endif
                                         <td class="whitespace-nowrap px-6 py-4">
                                             @php
                                                 $modalName = "confirm-buah-deletion{$loop->iteration}";
