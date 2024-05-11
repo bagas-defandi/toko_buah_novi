@@ -31,8 +31,8 @@ class BuahController extends Controller
                 'nama' => ['required', 'string', 'max:255'],
                 'harga' => ['required', 'numeric'],
                 'stok' => ['required', 'numeric'],
-                'jumlah_berat' => ['required', 'numeric', 'max:1000'],
-                'berat' => ['required', 'in:kg,gr'],
+                'berat' => ['required', 'numeric',],
+                'satuan_berat' => ['required', 'in:kg,gr'],
                 'gambar' => 'required|file|image|max:5000'
             ]);
         }
@@ -70,15 +70,24 @@ class BuahController extends Controller
                 'nama' => ['required', 'string', 'max:255'],
                 'harga' => ['required', 'numeric'],
                 'stok' => ['required', 'numeric'],
-                'jumlah_berat' => ['required', 'numeric', 'max:1000'],
-                'berat' => ['required', 'in:kg,gr'],
+                'berat' => ['required', 'numeric',],
+                'satuan_berat' => ['required', 'in:kg,gr'],
                 'gambar' => 'file|image|max:5000'
             ]);
         }
 
-        if ($request->with_variation == 'tidak' && count($buah->buah_variations->toArray()) > 0) {
-            $buahVariations = BuahVariation::where('buah_id', $buah->id);
-            $buahVariations->delete();
+        if ($request->with_variation == 'tidak') {
+            // Hapus buah yang memiliki variasi
+            if (count($buah->buah_variations->toArray()) > 0) {
+                $buahVariations = BuahVariation::where('buah_id', $buah->id);
+                $buahVariations->delete();
+            }
+        } else {
+            // Hapus data utk buah yang berubah menjadi memiliki variasi
+            $validateData['harga'] = null;
+            $validateData['berat'] = null;
+            $validateData['satuan_berat'] = null;
+            $validateData['stok'] = null;
         }
 
         if (isset($request->gambar)) {

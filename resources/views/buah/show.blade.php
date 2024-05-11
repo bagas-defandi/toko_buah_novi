@@ -43,10 +43,10 @@
                                         <td class="whitespace-nowrap px-6 py-4">{{ $variation->nama }}</td>
 
                                         <td class="whitespace-nowrap px-6 py-4">
-                                            {{ "Rp. {$harga} = Per {$variation->jumlah_berat}/{$variation->berat}" }}
+                                            {{ "Rp. {$harga} = Per {$variation->berat}/{$variation->satuan_berat}" }}
                                         </td>
                                         <td class="whitespace-nowrap px-6 py-4">
-                                            {{ "{$variation->stok} {$variation->berat}" }}
+                                            {{ "{$variation->stok} {$variation->satuan_berat}" }}
                                         </td>
                                         <td class="whitespace-nowrap px-6 py-4">
                                             @php

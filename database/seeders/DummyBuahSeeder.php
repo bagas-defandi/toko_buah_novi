@@ -16,28 +16,28 @@ class DummyBuahSeeder extends Seeder
     {
         Buah::create([
             'nama' => 'Jeruk Santang',
-            'gambar' => 'storage/images/jeruk santang.jpg',
+            'gambar' => 'storage/images/TBN-1715405961-jeruk-santang.jpg',
             'harga' => 50000,
-            'jumlah_berat' => 1,
-            'berat' => 'kg',
+            'berat' => 1,
+            'satuan_berat' => 'kg',
             'stok' => 7,
         ]);
 
         Buah::create([
             'nama' => 'Strawberry',
-            'gambar' => 'storage/images/buah strowberry.jpg',
+            'gambar' => 'storage/images/TBN-1715405962-buah-strowberry.jpg',
         ]);
 
         Buah::create([
             'nama' => 'Anggur',
-            'gambar' => 'storage/images/anggur.jpg',
+            'gambar' => 'storage/images/TBN-1715405963-anggur.jpg',
         ]);
 
         BuahVariation::create([
             'nama' => 'Anggur Merah',
             'harga' => 70000,
-            'jumlah_berat' => 1,
-            'berat' => 'kg',
+            'berat' => 1,
+            'satuan_berat' => 'kg',
             'stok' => 3,
             'buah_id' => 3,
         ]);
@@ -45,8 +45,8 @@ class DummyBuahSeeder extends Seeder
         BuahVariation::create([
             'nama' => 'Anggur Hitam',
             'harga' => 100000,
-            'jumlah_berat' => 1,
-            'berat' => 'kg',
+            'berat' => 1,
+            'satuan_berat' => 'kg',
             'stok' => 3,
             'buah_id' => 3,
         ]);

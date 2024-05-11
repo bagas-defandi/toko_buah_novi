@@ -13,8 +13,8 @@ class Buah extends Model
     protected $fillable = [
         'nama',
         'harga',
-        'jumlah_berat',
         'berat',
+        'satuan_berat',
         'stok',
         'gambar',
     ];

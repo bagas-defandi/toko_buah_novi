@@ -73,10 +73,10 @@
                                         </td>
                                         @if (isset($buah->harga))
                                             <td class="whitespace-nowrap px-6 py-4">
-                                                {{ "Rp. {$harga} = Per {$buah->jumlah_berat}/{$buah->berat}" }}
+                                                {{ "Rp. {$harga} = Per {$buah->berat}/{$buah->satuan_berat}" }}
                                             </td>
                                             <td class="whitespace-nowrap px-6 py-4">
-                                                {{ "{$buah->stok} {$buah->berat}" }}
+                                                {{ "{$buah->stok} {$buah->satuan_berat}" }}
                                             </td>
                                         @else
                                             <td class="text-center" colspan="2">
