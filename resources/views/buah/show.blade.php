@@ -1,48 +1,21 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Daftar Buah') }}
+            {{ __("Variasi Buah \"{$buah->nama}\"") }}
         </h2>
     </x-slot>
 
-    @if (session()->has('pesan'))
-        @php
-            $pesan = session()->get('pesan');
-            $words = explode(' ', $pesan);
-            $lastWord = end($words);
-        @endphp
-        <div class="pt-4">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex justify-end">
-                <div @class([
-                    'relative',
-                    'block',
-                    'w-full',
-                    'p-4',
-                    'mb-4',
-                    'text-base',
-                    'leading-5',
-                    'text-white',
-                    'bg-green-500' => $lastWord == 'ditambah' || $lastWord == 'diubah',
-                    'bg-red-500' => $lastWord == 'dihapus',
-                    'rounded-lg',
-                    'opacity-100',
-                    'font-regular',
-                ])>
-                    {{ $pesan }}
-                </div>
-            </div>
-        </div>
-    @endif
-
     <div class="py-4">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex justify-end">
-            <a href="{{ route('buahs.create') }}"
-                class="inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">
-                Tambah Buah</a>
+            <a href="#"
+                class="mr-3 inline-flex items-center px-4 py-2 bg-green-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-500 active:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">
+                Tambah Variasi
+            </a>
         </div>
     </div>
 
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-6">
+        <img style="height: 300px" class="center mx-auto" src="{{ asset($buah->gambar) }}" alt="{{ $buah->nama }}">
         <div class="flex flex-col">
             <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
@@ -51,40 +24,30 @@
                             <thead class="border-b border-neutral-200 font-medium dark:border-white/10">
                                 <tr>
                                     <th scope="col" class="px-6 py-4">#</th>
-                                    <th scope="col" class="px-6 py-4">Nama Buah</th>
-                                    <th scope="col" class="px-6 py-4">Gambar</th>
+                                    <th scope="col" class="px-6 py-4">Nama Variasi</th>
                                     <th scope="col" class="px-6 py-4">Harga</th>
                                     <th scope="col" class="px-6 py-4">Stok</th>
                                     <th scope="col" class="px-6 py-4">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($buahs as $buah)
+                                {{-- <td colspan="6" class="text-center"><span class="block mt-4 text-xl">Tidak ada
+                                        data...</span>
+                                </td> --}}
+                                @forelse ($buah->buah_variations as $variation)
                                     @php
-                                        $harga = number_format($buah->harga, 0, ',', '.');
+                                        $harga = number_format($variation->harga, 0, ',', '.');
                                     @endphp
                                     <tr class="border-b border-neutral-200 dark:border-white/10">
                                         <td class="whitespace-nowrap px-6 py-4 font-medium">{{ $loop->iteration }}</td>
-                                        <td class="whitespace-nowrap px-6 py-4">{{ $buah->nama }}</td>
-                                        <td class="whitespace-nowrap px-6 py-4">
-                                            <img style="height: 100px; width: 100px" src="{{ asset($buah->gambar) }}"
-                                                alt="{{ $buah->nama }}">
+                                        <td class="whitespace-nowrap px-6 py-4">{{ $variation->nama }}</td>
 
+                                        <td class="whitespace-nowrap px-6 py-4">
+                                            {{ "Rp. {$harga} = Per {$variation->jumlah_berat}/{$variation->berat}" }}
                                         </td>
-                                        @if (isset($buah->harga))
-                                            <td class="whitespace-nowrap px-6 py-4">
-                                                {{ "Rp. {$harga} = Per {$buah->jumlah_berat}/{$buah->berat}" }}
-                                            </td>
-                                            <td class="whitespace-nowrap px-6 py-4">
-                                                {{ "{$buah->stok} {$buah->berat}" }}
-                                            </td>
-                                        @else
-                                            <td class="text-center" colspan="2">
-                                                Buah ini memiliki {{ count($buah->buah_variations) }} variasi. Lihat
-                                                <a class="underline underline-offset-4"
-                                                    href="{{ route('buahs.show', $buah) }}">Disini</a>
-                                            </td>
-                                        @endif
+                                        <td class="whitespace-nowrap px-6 py-4">
+                                            {{ "{$variation->stok} {$variation->berat}" }}
+                                        </td>
                                         <td class="whitespace-nowrap px-6 py-4">
                                             @php
                                                 $modalName = "confirm-buah-deletion{$loop->iteration}";

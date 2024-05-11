@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Buah;
+use App\Models\BuahVariation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -10,7 +11,7 @@ class BuahController extends Controller
 {
     public function index()
     {
-        return view('buah.index', ['buahs' => Buah::all()]);
+        return view('buah.index', ['buahs' => Buah::with('buah_variations')->get()]);
     }
 
     public function create()
@@ -47,6 +48,11 @@ class BuahController extends Controller
         return to_route('buahs.index')->with('pesan', "Buah \"{$request->nama}\" berhasil ditambah");
     }
 
+    public function show(Buah $buah)
+    {
+        return view('buah.show', compact('buah'));
+    }
+
     public function edit(Buah $buah)
     {
         return view('buah.edit', compact('buah'));
@@ -54,14 +60,26 @@ class BuahController extends Controller
 
     public function update(Request $request, Buah $buah)
     {
-        $validateData = $request->validate([
-            'nama' => ['required', 'string', 'max:255'],
-            'harga' => ['required', 'numeric'],
-            'stok' => ['required', 'numeric'],
-            'jumlah_berat' => ['required', 'numeric', 'max:1000'],
-            'berat' => ['required', 'in:kg,gr'],
-            'gambar' => 'file|image|max:5000',
-        ]);
+        if ($request->with_variation == 'ya') {
+            $validateData = $request->validate([
+                'nama' => ['required', 'string', 'max:255'],
+                'gambar' => 'file|image|max:5000',
+            ]);
+        } else {
+            $validateData = $request->validate([
+                'nama' => ['required', 'string', 'max:255'],
+                'harga' => ['required', 'numeric'],
+                'stok' => ['required', 'numeric'],
+                'jumlah_berat' => ['required', 'numeric', 'max:1000'],
+                'berat' => ['required', 'in:kg,gr'],
+                'gambar' => 'file|image|max:5000'
+            ]);
+        }
+
+        if ($request->with_variation == 'tidak' && count($buah->buah_variations->toArray()) > 0) {
+            $buahVariations = BuahVariation::where('buah_id', $buah->id);
+            $buahVariations->delete();
+        }
 
         if (isset($request->gambar)) {
             // Gambar di simpan dlm format -> storage/images/namaImg.jpg
