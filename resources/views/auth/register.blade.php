@@ -1,55 +1,3 @@
-{{-- <x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
-
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
-        </div>
-
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
-
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
-
-            <x-primary-button class="ms-4">
-                {{ __('Register') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout> --}}
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
@@ -82,28 +30,40 @@
         </div>
         <div class="col-span-2">
             <img class="ml-auto w-[200px] h-[200px]" src="{{ asset('storage/images/Logo_toko.png') }}" alt="">
-            <div style="margin-top: 10%" class="w-[400px] mx-auto">
+            <div class="w-[400px] mx-auto">
                 <p class="font-bold text-gray-700 text-2xl mb-6">Senang berkenalan denganmu!</p>
                 <form method="POST" action="{{ route('register') }}">
                     @csrf
-                    <div class="mb-6">
+                    <div class="mb-4">
                         <input class="block w-full rounded-lg border-gray-300 py-3 shadow-sm" type="text"
                             name="name" id="name" placeholder="Masukkan Nama anda" required=""
                             value="{{ old('name') }}">
                         <x-input-error :messages="$errors->get('name')" class="mt-2" />
                     </div>
-                    <div class="mb-6">
+                    <div class="mb-4">
                         <input class="block w-full rounded-lg border-gray-300 py-3 shadow-sm" type="email"
                             name="email" id="email" placeholder="Masukkan Email anda" required=""
                             value="{{ old('email') }}">
                         <x-input-error :messages="$errors->get('email')" class="mt-2" />
                     </div>
-                    <div class="mb-6">
+                    <div class="mb-4">
+                        <input class="block w-full rounded-lg border-gray-300 py-3 shadow-sm" type="text"
+                            name="no_telp" id="no_telp" placeholder="Masukkan No Telp anda" required=""
+                            value="{{ old('no_telp') }}">
+                        <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                    </div>
+                    <div class="mb-4">
+                        <input class="block w-full rounded-lg border-gray-300 py-3 shadow-sm" type="text"
+                            name="alamat" id="alamat" placeholder="Masukkan Alamat anda" required=""
+                            value="{{ old('alamat') }}">
+                        <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                    </div>
+                    <div class="mb-4">
                         <input class="block w-full rounded-lg border-gray-300 py-3 shadow-sm" type="password"
                             name="password" id="password" placeholder="Masukkan Password" required="">
                         <x-input-error :messages="$errors->get('password')" class="mt-2" />
                     </div>
-                    <div class="mb-6">
+                    <div class="mb-4">
                         <input class="block w-full rounded-lg border-gray-300 py-3 shadow-sm" type="password"
                             name="password_confirmation" id="password_confirmation" placeholder="Konfirmasi Password"
                             required="">
@@ -113,7 +73,7 @@
                         Buat Akun
                     </button>
                 </form>
-                <div class="text-center mt-6">
+                <div class="text-center mt-4">
                     <p>
                         Sudah jadi member?
                         <a style="color: #734D47" class="font-bold" href="{{ route('login') }}">
