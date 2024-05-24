@@ -10,13 +10,13 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::prefix('/dashboard')->middleware(['auth', 'verified'])->group(function () {
-    Route::get('/staffs', [StaffController::class, 'index'])->name('staffs.index');
-    Route::get('/staffs/create', [StaffController::class, 'create'])->name('staffs.create');
-    Route::post('/staffs', [StaffController::class, 'store'])->name('staffs.store');
+    Route::get('/staffs', [StaffController::class, 'index'])->name('staffs.index')->middleware(['role:admin']);
+    Route::get('/staffs/create', [StaffController::class, 'create'])->name('staffs.create')->middleware(['role:admin']);
+    Route::post('/staffs', [StaffController::class, 'store'])->name('staffs.store')->middleware(['role:admin']);
     Route::delete('/staffs/{idStaff}', [StaffController::class, 'destroy'])
-        ->name('staffs.destroy');
+        ->name('staffs.destroy')->middleware(['role:admin']);
 
-    Route::resource('buahs', BuahController::class);
+    Route::resource('buahs', BuahController::class)->middleware(['role:admin|staff']);
 });
 
 Route::middleware('auth')->group(function () {

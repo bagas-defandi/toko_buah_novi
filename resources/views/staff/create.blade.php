@@ -24,6 +24,14 @@
                 <x-input-error :messages="$errors->get('email')" class="mt-2" />
             </div>
 
+            <!-- No Telepon -->
+            <div class="mt-4">
+                <x-input-label for="no_telp" :value="__('No Telepon')" />
+                <x-text-input id="no_telp" class="block mt-1 w-full" type="text" name="no_telp" :value="old('no_telp')"
+                    required autocomplete="username" />
+                <x-input-error :messages="$errors->get('no_telp')" class="mt-2" />
+            </div>
+
             <!-- Password -->
             <div class="mt-4">
                 <x-input-label for="password" :value="__('Password')" />

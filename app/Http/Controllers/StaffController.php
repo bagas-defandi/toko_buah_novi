@@ -33,12 +33,14 @@ class StaffController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
+            'no_telp' => ['required', 'string', 'max:13', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
         User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'no_telp' => $request->no_telp,
             'email_verified_at' => now(),
             'password' => bcrypt($request->password),
         ])->assignRole('staff');
