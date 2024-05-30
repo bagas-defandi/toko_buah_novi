@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --clr-accent: #cc897e;
+    --clr-accent-dark: #c47b70;
+}
+
+.bg-accent {
+    background-color: var(--clr-accent);
+}
+
+button.bg-accent:hover,
+a.bg-accent:hover {
+    background-color: var(--clr-accent-dark);
+}

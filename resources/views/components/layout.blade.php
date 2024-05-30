@@ -21,7 +21,7 @@
     <link rel="icon" type="image/png" href="storage/images/favicon-32x32.png" sizes="32x32" />
 
     {{-- CSS dan JS --}}
-    @vite(['resources/css/app.css', 'resources/css/bootstrap.css', 'resources/css/style.css', 'resources/css/responsive.css', 'resources/js/jquery.js', 'resources/js/app.js', 'resources/js/bootstrap.js', 'resources/js/custom.js'])
+    @vite(['resources/css/bootstrap.css', 'resources/css/style.css', 'resources/css/responsive.css', 'resources/js/jquery.js', 'resources/js/app.js', 'resources/js/bootstrap.js', 'resources/js/custom.js'])
 </head>
 
 <body>
