@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BuahController;
+use App\Http\Controllers\PageGuestController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StaffController;
 use Illuminate\Support\Facades\Route;
@@ -25,7 +26,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::view('/', 'index')->name('index');
+// Route::view('/', 'index')->name('index');
+Route::get('/', [PageGuestController::class, 'index'])->name('index');
 Route::view('/about', 'about')->name('about');
 Route::view('/buahs', 'buahs')->name('buahs');
 
