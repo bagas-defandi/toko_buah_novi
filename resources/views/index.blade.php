@@ -78,7 +78,7 @@
                             <h5>
                                 {{ $buah->nama }}
                             </h5>
-                            <a href="">
+                            <a href="{{ route('buah', $buah->id) }}">
                                 Beli
                             </a>
                         </div>

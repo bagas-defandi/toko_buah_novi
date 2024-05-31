@@ -28,7 +28,8 @@ Route::middleware('auth')->group(function () {
 
 // Route::view('/', 'index')->name('index');
 Route::get('/', [PageGuestController::class, 'index'])->name('index');
+Route::get('/buahs', [PageGuestController::class, 'buahs'])->name('buahs');
+Route::get('/buah/{idBuah}', [PageGuestController::class, 'buah'])->name('buah');
 Route::view('/about', 'about')->name('about');
-Route::view('/buahs', 'buahs')->name('buahs');
 
 require __DIR__ . '/auth.php';
