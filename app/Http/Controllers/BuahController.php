@@ -11,7 +11,7 @@ class BuahController extends Controller
 {
     public function index()
     {
-        return view('buah.index', ['buahs' => Buah::with('buah_variations')->get()]);
+        return view('buah.index', ['buahs' => Buah::all()]);
     }
 
     public function create()
@@ -21,21 +21,15 @@ class BuahController extends Controller
 
     public function store(Request $request)
     {
-        if ($request->with_variation == 'ya') {
-            $validateData = $request->validate([
-                'nama' => ['required', 'string', 'max:255'],
-                'gambar' => 'required|file|image|max:5000',
-            ]);
-        } else {
-            $validateData = $request->validate([
-                'nama' => ['required', 'string', 'max:255'],
-                'harga' => ['required', 'numeric'],
-                'stok' => ['required', 'numeric'],
-                'berat' => ['required', 'numeric',],
-                'satuan_berat' => ['required', 'in:kg,gr'],
-                'gambar' => 'required|file|image|max:5000'
-            ]);
-        }
+        $validateData = $request->validate([
+            'nama' => ['required', 'string', 'max:255'],
+            'harga' => ['required', 'numeric'],
+            'stok' => ['required', 'numeric'],
+            'berat' => ['required', 'numeric',],
+            'satuan_berat' => ['required', 'in:kg,gr'],
+            'gambar' => 'required|file|image|max:5000'
+        ]);
+
 
         // Agar nama file berbeda
         $oriFileName = preg_replace('/\s+/', '-', $request->gambar->getClientOriginalName());
@@ -50,7 +44,8 @@ class BuahController extends Controller
 
     public function show(Buah $buah)
     {
-        return view('buah.show', compact('buah'));
+        // tidak membutuhkan show karena tidak ada variasi
+        // return view('buah.show', compact('buah'));
     }
 
     public function edit(Buah $buah)
@@ -60,35 +55,15 @@ class BuahController extends Controller
 
     public function update(Request $request, Buah $buah)
     {
-        if ($request->with_variation == 'ya') {
-            $validateData = $request->validate([
-                'nama' => ['required', 'string', 'max:255'],
-                'gambar' => 'file|image|max:5000',
-            ]);
-        } else {
-            $validateData = $request->validate([
-                'nama' => ['required', 'string', 'max:255'],
-                'harga' => ['required', 'numeric'],
-                'stok' => ['required', 'numeric'],
-                'berat' => ['required', 'numeric',],
-                'satuan_berat' => ['required', 'in:kg,gr'],
-                'gambar' => 'file|image|max:5000'
-            ]);
-        }
 
-        if ($request->with_variation == 'tidak') {
-            // Hapus buah yang memiliki variasi
-            if (count($buah->buah_variations->toArray()) > 0) {
-                $buahVariations = BuahVariation::where('buah_id', $buah->id);
-                $buahVariations->delete();
-            }
-        } else {
-            // Hapus data utk buah yang berubah menjadi memiliki variasi
-            $validateData['harga'] = null;
-            $validateData['berat'] = null;
-            $validateData['satuan_berat'] = null;
-            $validateData['stok'] = null;
-        }
+        $validateData = $request->validate([
+            'nama' => ['required', 'string', 'max:255'],
+            'harga' => ['required', 'numeric'],
+            'stok' => ['required', 'numeric'],
+            'berat' => ['required', 'numeric',],
+            'satuan_berat' => ['required', 'in:kg,gr'],
+            'gambar' => 'file|image|max:5000'
+        ]);
 
         if (isset($request->gambar)) {
             // Gambar di simpan dlm format -> storage/images/namaImg.jpg

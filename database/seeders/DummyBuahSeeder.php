@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Buah;
-use App\Models\BuahVariation;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -26,29 +25,19 @@ class DummyBuahSeeder extends Seeder
         Buah::create([
             'nama' => 'Strawberry',
             'gambar' => 'storage/images/TBN-1715405962-buah-strowberry.jpg',
+            'harga' => 55000,
+            'berat' => 1,
+            'satuan_berat' => 'kg',
+            'stok' => 5,
         ]);
 
         Buah::create([
             'nama' => 'Anggur',
             'gambar' => 'storage/images/TBN-1715405963-anggur.jpg',
-        ]);
-
-        BuahVariation::create([
-            'nama' => 'Anggur Merah',
-            'harga' => 70000,
+            'harga' => 40000,
             'berat' => 1,
             'satuan_berat' => 'kg',
             'stok' => 3,
-            'buah_id' => 3,
-        ]);
-
-        BuahVariation::create([
-            'nama' => 'Anggur Hitam',
-            'harga' => 100000,
-            'berat' => 1,
-            'satuan_berat' => 'kg',
-            'stok' => 3,
-            'buah_id' => 3,
         ]);
     }
 }

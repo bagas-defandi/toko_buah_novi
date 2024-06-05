@@ -18,9 +18,4 @@ class Buah extends Model
         'stok',
         'gambar',
     ];
-
-    public function buah_variations(): HasMany
-    {
-        return $this->hasMany('App\Models\BuahVariation');
-    }
 }

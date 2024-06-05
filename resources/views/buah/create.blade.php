@@ -9,21 +9,6 @@
         <form method="POST" action="{{ route('buahs.store') }}" enctype="multipart/form-data">
             @csrf
 
-            <div class="mt-4">
-                <p class="text-xl font-medium text-gray-900 dark:text-gray-300">
-                    Apakah buah ini memiliki variasi?
-                </p>
-                <label for="ya" class="dark:text-white">Ya</label>
-                <input id="ya" type="radio" x-model="withVariation" name="with_variation" value="ya"
-                    @checked(old('with_variation') == 'ya')
-                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-
-                <label for="tidak" class="ml-3 dark:text-white">Tidak</label>
-                <input id="tidak" type="radio" x-model="withVariation" name="with_variation" value="tidak"
-                    @checked(old('with_variation') == 'tidak')
-                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-            </div>
-
             <!-- Nama -->
             <div class="mt-4">
                 <x-input-label for="nama" :value="__('Nama')" />
