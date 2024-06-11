@@ -5,6 +5,8 @@
 :root {
     --clr-accent: #cc897e;
     --clr-accent-dark: #c47b70;
+    --clr-primary-light: #fff7f5;
+    --clr-primary-dark: #bf8077;
 }
 
 .bg-accent {
@@ -14,4 +16,12 @@
 button.bg-accent:hover,
 a.bg-accent:hover {
     background-color: var(--clr-accent-dark);
+}
+
+.bg-primary-light {
+    background-color: var(--clr-primary-light);
+}
+
+.text-primary-dark {
+    color: var(--clr-primary-dark);
 }

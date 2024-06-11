@@ -2,7 +2,7 @@
     <div class="container">
         <div class="info_logo">
             <h2>
-                Contact Us
+                Hubungi Kami
             </h2>
         </div>
         <div class="info_contact">

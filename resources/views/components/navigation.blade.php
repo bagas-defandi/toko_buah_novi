@@ -10,14 +10,14 @@
                     <div class="d-flex flex-column flex-lg-row align-items-center flex-grow-1 justify-content-between">
                         <ul class="navbar-nav">
                             <li class="nav-item active">
-                                <a class="nav-link" href="{{ route('index') }}">Home <span
+                                <a class="nav-link" href="{{ route('index') }}">Beranda <span
                                         class="sr-only">(current)</span></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('about') }}">About </a>
+                                <a class="nav-link" href="{{ route('about') }}">Tentang Kami </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('buahs') }}">Our Fruit </a>
+                                <a class="nav-link" href="{{ route('buahs') }}">Produk</a>
                             </li>
                         </ul>
                         <ul class="navbar-nav">
@@ -28,7 +28,7 @@
                                 </li>
                             @else
                                 <li class="nav-item active">
-                                    <a class="nav-link" href="{{ route('login') }}">Login<span
+                                    <a class="nav-link" href="{{ route('login') }}">Masuk<span
                                             class="sr-only">(current)</span></a>
                                 </li>
                                 <li class="nav-item">
