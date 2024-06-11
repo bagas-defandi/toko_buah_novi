@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('gambar')->after('alamat');
+            $table->string('gambar')->after('alamat')->default('https://static.thenounproject.com/png/354384-200.png');
         });
     }
 

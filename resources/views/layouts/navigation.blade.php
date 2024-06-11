@@ -42,7 +42,7 @@
                         <button
                             class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-primary-light dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
                             <div class="flex items-center">
-                                <img src="https://randomuser.me/api/portraits/men/18.jpg" alt="User Profile Picture"
+                                <img src="{{ asset(Auth::user()->gambar) }}" alt="User Profile Picture"
                                     class="w-8 h-8 rounded-full mr-2">
                                 <div>{{ Auth::user()->name }}</div>
                             </div>

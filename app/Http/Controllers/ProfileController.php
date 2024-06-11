@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -56,5 +57,22 @@ class ProfileController extends Controller
         $request->session()->regenerateToken();
 
         return Redirect::to('/');
+    }
+
+    public function ganti(Request $request): RedirectResponse
+    {
+        $validateData = $request->validate([
+            'gambar' => 'file|image|max:5000'
+        ]);
+
+        $oriFileName = preg_replace('/\s+/', '-', $request->gambar->getClientOriginalName());
+        $namaFile = 'TBN-' . time() . '-' . $oriFileName;
+        $request->gambar->storeAs('public/images', $namaFile);
+
+        $validateData['gambar'] = 'storage/images/' . $namaFile;
+
+        User::where('id', Auth::user()->id)->update($validateData);
+
+        return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
 }
