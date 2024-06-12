@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Buah extends Model
 {
@@ -18,4 +19,9 @@ class Buah extends Model
         'stok',
         'gambar',
     ];
+
+    public function item(): HasOne
+    {
+        return $this->hasOne('App\Models\CartItem');
+    }
 }

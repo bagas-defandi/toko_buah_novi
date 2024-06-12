@@ -21,5 +21,14 @@ class UserSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => bcrypt('admin123'),
         ])->assignRole('admin');
+
+        User::create([
+            'name' => 'Bagas',
+            'email' => 'bagasdefandi31@gmail.com',
+            'no_telp' => '082180246367',
+            'alamat' => 'Jalan Haji No.1',
+            'email_verified_at' => now(),
+            'password' => bcrypt('bagas123'),
+        ])->assignRole('pembeli');
     }
 }

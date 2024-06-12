@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BuahController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\PageGuestController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StaffController;
@@ -28,6 +29,11 @@ Route::middleware('auth')->group(function () {
 });
 
 // Route::view('/', 'index')->name('index');
+Route::get('/keranjang', [CartController::class, 'index'])->name('keranjang');
+Route::post('/tambah-keranjang', [CartController::class, 'tambahKeranjang'])->name('tambah-keranjang');
+Route::put('/update-keranjang', [CartController::class, 'update'])->name('update-keranjang');
+Route::delete('/hapus-keranjang/{idItem}', [CartController::class, 'delete'])->name('hapus-keranjang');
+
 Route::get('/', [PageGuestController::class, 'index'])->name('index');
 Route::get('/buahs', [PageGuestController::class, 'buahs'])->name('buahs');
 Route::get('/buah/{idBuah}', [PageGuestController::class, 'buah'])->name('buah');

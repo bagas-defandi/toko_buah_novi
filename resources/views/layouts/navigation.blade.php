@@ -5,7 +5,7 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
+                    <a href="{{ route('index') }}">
                         <img class="w-[100px] h-[100px] mt-2" src="{{ asset('storage/images/Logo_toko-trans.png') }}"
                             alt="Logo Toko Buah Novi">
                     </a>

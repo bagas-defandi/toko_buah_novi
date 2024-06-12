@@ -16,11 +16,20 @@
                 <div class="img-box">
                     <img src="{{ asset($buah->gambar) }}" style="width: 500px ; border-radius: 60px;">
                 </div>
-                <div class="btn-box">
-                    <a href="">
-                        Beli Sekarang
-                    </a>
-                </div>
+                @auth()
+                    <form method="POST" action="{{ route('tambah-keranjang') }}" class="btn-box">
+                        @csrf
+                        <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                        <input type="hidden" name="buah_id" value="{{ $buah->id }}">
+                        <input type="hidden" name="harga_buah" value="{{ $buah->harga }}">
+                        <label for="kuantitas">Stok Tersedia {{ $buah->stok }}:</label>
+                        <input class="text-center" type="number" id="kuantitas" name="kuantitas" min="1"
+                            max="{{ $buah->stok }}" value="1">
+                        <button class="ml-4">
+                            Tambah Keranjang
+                        </button>
+                    </form>
+                @endauth
             </div>
         </div>
     </section>

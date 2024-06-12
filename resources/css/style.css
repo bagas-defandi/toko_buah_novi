@@ -212,7 +212,8 @@ a:focus {
     margin-top: 25px;
 }
 
-.shop_section .box .btn-box a {
+.shop_section .box .btn-box a,
+.shop_section .box .btn-box button {
     display: inline-block;
     padding: 8px 40px;
     background-color: #313131;
@@ -220,7 +221,8 @@ a:focus {
     color: #ffffff;
 }
 
-.shop_section .box .btn-box a:hover {
+.shop_section .box .btn-box a:hover,
+.shop_section .box .btn-box button:hover {
     background-color: transparent;
     color: #313131;
 }
