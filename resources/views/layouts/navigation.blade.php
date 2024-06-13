@@ -18,6 +18,14 @@
                     </x-nav-link>
                 </div>
 
+                @if (auth()->user()->hasRole('pembeli'))
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('pemesanan.pembeli.index')" :active="request()->routeIs('pemesanan.pembeli.index')">
+                            {{ __('Riwayat Pemesanan Anda') }}
+                        </x-nav-link>
+                    </div>
+                @endif
+
                 @if (auth()->user()->hasRole('admin'))
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                         <x-nav-link :href="route('staffs.index')" :active="request()->routeIs('staffs.index')">

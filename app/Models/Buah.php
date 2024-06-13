@@ -24,4 +24,9 @@ class Buah extends Model
     {
         return $this->hasOne('App\Models\CartItem');
     }
+
+    public function detail(): HasOne
+    {
+        return $this->hasOne('App\Models\OrderDetail');
+    }
 }

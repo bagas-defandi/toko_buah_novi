@@ -49,11 +49,13 @@
                                 <td colspan="6">Total Harga:
                                     Rp.{{ number_format($cart->total_harga, 0, ',', '.') }}</td>
                             </tr>
-
                         </tbody>
                     </table>
                 </div>
             </form>
+            <div class="d-flex justify-content-end">
+                <a href="{{ route('pesanan') }}" class="btn-success px-4 py-2 text-white">Pesan Sekarang</a>
+            </div>
         </div>
     </section>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
