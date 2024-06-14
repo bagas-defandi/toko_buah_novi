@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->integer('jumlah_produk');
             $table->integer('total_harga');
-            $table->enum('metode_bayar', ['cod', 'qris', 'transfer_bank']);
+            $table->enum('metode_bayar', ['cod', 'qris']);
             $table->enum('status_bayar', ['Belum Bayar', 'Sudah Bayar']);
             $table->string('bukti_bayar')->nullable();
             $table->enum('status_pengiriman', ['Diproses', 'Dikirim', 'Diterima']);
-            $table->enum('pengiriman', ['gojek', 'maxim', 'cod']);
+            $table->enum('pengiriman', ['gojek', 'maxim', 'grab', 'cod']);
             $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });

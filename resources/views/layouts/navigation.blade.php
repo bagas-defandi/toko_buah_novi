@@ -41,6 +41,14 @@
                         </x-nav-link>
                     </div>
                 @endif
+
+                @if (auth()->user()->hasRole('admin') || auth()->user()->hasRole('staff'))
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('pemesanan.admin.index')" :active="request()->routeIs('pemesanan.admin.index')">
+                            {{ __('Kelola Pemesanan') }}
+                        </x-nav-link>
+                    </div>
+                @endif
             </div>
 
             <!-- Settings Dropdown -->

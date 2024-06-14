@@ -10,7 +10,7 @@
                     </ul>
                 </div>
             @endif
-            <form method="POST" action="{{ route('pesanan.store') }}">
+            <form method="POST" action="{{ route('pesanan.store') }}" enctype="multipart/form-data">
                 @csrf
                 <h2 style="margin-top: -20px; font-size: 1.5rem; font-weight:bold">Alamat Pengiriman</h2>
                 <div class="d-flex">
@@ -59,9 +59,10 @@
                 <div>
                     <span>Pilih Jasa Kirim: </span>
                     <select name="pengiriman" id="pengiriman">
+                        <option value="cod">COD</option>
                         <option value="gojek">Gosend by Gojek</option>
                         <option value="maxim">Maxim</option>
-                        <option value="cod">COD</option>
+                        <option value="grab">Grab</option>
                     </select>
                 </div>
                 <h2 style="font-size: 1.5rem; font-weight:bold; margin-top: 30px">Metode Bayar</h2>
@@ -71,14 +72,12 @@
                         <label for="cod">COD</label><br>
                         <input type="radio" id="qris" name="metode_bayar" value="qris">
                         <label for="qris">QRIS</label><br>
-                        <input type="radio" id="transfer_bank" name="metode_bayar" value="transfer_bank">
-                        <label for="transfer_bank">Transfer Bank</label>
                     </div>
                     <img src="{{ asset('storage/images/QRIS.png') }}" alt="QRIS Toko Buah Novi">
                 </div>
                 <h2 style="font-size: 1.5rem; font-weight:bold; margin-top: 30px">Upload Bukti Bayar</h2>
                 <div class="mb-3">
-                    <input class="form-control" type="file" id="formFile">
+                    <input class="form-control" type="file" id="bukti_bayar" name="bukti_bayar">
                 </div>
                 <p style="font-size: 2rem" class="text-center">Total Pembayaran:
                     Rp.{{ number_format($cart->total_harga, 0, ',', '.') }}</p>

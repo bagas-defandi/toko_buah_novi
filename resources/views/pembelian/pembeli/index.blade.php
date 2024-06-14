@@ -43,7 +43,12 @@
                                             {{ $order->status_bayar }}
                                         </td>
                                         <td class="whitespace-nowrap px-6 py-4">
-                                            {{ $order->status_bayar }}
+                                            @if ($order->bukti_bayar)
+                                                <a class="underline underline-offset-4"
+                                                    href="{{ asset($order->bukti_bayar) }}">Lihat Bukti</a>
+                                            @else
+                                                -
+                                            @endif
                                         </td>
                                         <td class="whitespace-nowrap px-6 py-4">
                                             {{ $order->status_pengiriman }}

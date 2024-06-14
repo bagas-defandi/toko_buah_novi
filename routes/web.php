@@ -22,6 +22,11 @@ Route::prefix('/dashboard')->middleware(['auth', 'verified'])->group(function ()
 
     Route::get('/pemesanan-anda', [OrderController::class, 'history'])->name('pemesanan.pembeli.index')->middleware('role:pembeli');
     Route::get('/pemesanan-anda/{idOrder}', [OrderController::class, 'show'])->name('pemesanan.pembeli.show')->middleware('role:pembeli');
+    Route::put('/kirim-bukti-bayar/{idOrder}', [OrderController::class, 'kirim_bukti'])->name('pemesanan.pembeli.kirim')->middleware('role:pembeli');
+
+    Route::get('/semua-pemesanan', [OrderController::class, 'all'])->name('pemesanan.admin.index')->middleware('role:admin|staff');
+    Route::put('/edit-pemesanan/{order}', [OrderController::class, 'edit'])->name('pemesanan.admin.edit')->middleware('role:admin|staff');
+    Route::delete('/hapus-pemesanan/{order}', [OrderController::class, 'destroy'])->name('pemesanan.admin.destroy')->middleware('role:admin|staff');
 
     Route::resource('buahs', BuahController::class)->middleware(['role:admin|staff']);
 });
