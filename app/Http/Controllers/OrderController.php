@@ -60,6 +60,9 @@ class OrderController extends Controller
                 'order_id' => $order->id,
                 'buah_id' => $item->buah->id,
             ]);
+            $item->buah->update([
+                'stok' => $item->buah->stok - $item->kuantitas,
+            ]);
             $item->delete();
         }
         $cart->delete();
@@ -106,6 +109,13 @@ class OrderController extends Controller
 
     public function destroy(Order $order)
     {
+        if ($order->status_bayar == "Belum Bayar") {
+            foreach ($order->details as $detail) {
+                $detail->buah->update([
+                    'stok' => $detail->buah->stok + $detail->kuantitas,
+                ]);
+            }
+        }
         $order->delete();
         return to_route('pemesanan.admin.index');
     }

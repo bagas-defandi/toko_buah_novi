@@ -62,80 +62,87 @@
                                             {{ $order->created_at->timezone('Asia/Jakarta')->format('d F Y, H:i:s') }}
                                         </td>
                                         <td>
-                                            @php
-                                                $modalNameEdit = "edit-pesanan{$loop->iteration}";
-                                                $openModalNameEdit = "\$dispatch('open-modal', '$modalNameEdit')";
-                                            @endphp
-                                            <button x-data=""
-                                                x-on:click.prevent="{{ $openModalNameEdit }}"
-                                                class="mr-3 my-4 inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-500 active:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150'">
-                                                Edit
-                                            </button>
-                                            <x-modal name="{{ $modalNameEdit }}">
-                                                <form method="post"
-                                                    action="{{ route('pemesanan.admin.edit', $order) }}"
-                                                    class="p-6">
-                                                    @csrf
-                                                    <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-                                                        {{ __("Konfirmasi Pembayaran atas nama \"{$order->user->name}\", Sejumlah $total_harga, dan Ubah Status") }}
-                                                    </h2>
-                                                    @method('put')
+                                            @if ($order->status_bayar == 'Sudah Bayar' && $order->status_pengiriman == 'Diterima')
+                                                -
+                                            @else
+                                                @php
+                                                    $modalNameEdit = "edit-pesanan{$loop->iteration}";
+                                                    $openModalNameEdit = "\$dispatch('open-modal', '$modalNameEdit')";
+                                                @endphp
+                                                <button x-data=""
+                                                    x-on:click.prevent="{{ $openModalNameEdit }}"
+                                                    class="mr-3 my-4 inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-500 active:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150'">
+                                                    Edit
+                                                </button>
+                                                <x-modal name="{{ $modalNameEdit }}">
+                                                    <form method="post"
+                                                        action="{{ route('pemesanan.admin.edit', $order) }}"
+                                                        class="p-6">
+                                                        @csrf
+                                                        <h2
+                                                            class="text-lg font-medium text-gray-900 dark:text-gray-100">
+                                                            {{ __("Konfirmasi Pembayaran atas nama \"{$order->user->name}\", Sejumlah $total_harga, dan Ubah Status") }}
+                                                        </h2>
+                                                        @method('put')
 
-                                                    <div class="mt-3">
-                                                        <x-input-label for="status_pengiriman" :value="__('Status Pengiriman')" />
-                                                        <select id="status_pengiriman" name="status_pengiriman"
-                                                            class="block mt-1 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
-                                                            <option value="Diproses">Diproses
-                                                            </option>
-                                                            <option value="Dikirim">Dikirim
-                                                            </option>
-                                                            <option value="Diterima">Diterima
-                                                            </option>
-                                                        </select>
-                                                        <x-input-error :messages="$errors->get('status_pengiriman')" class="mt-2" />
-                                                    </div>
+                                                        <div class="mt-3">
+                                                            <x-input-label for="status_pengiriman" :value="__('Status Pengiriman')" />
+                                                            <select id="status_pengiriman" name="status_pengiriman"
+                                                                class="block mt-1 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
+                                                                <option value="Diproses">Diproses
+                                                                </option>
+                                                                <option value="Dikirim">Dikirim
+                                                                </option>
+                                                                <option value="Diterima">Diterima
+                                                                </option>
+                                                            </select>
+                                                            <x-input-error :messages="$errors->get('status_pengiriman')" class="mt-2" />
+                                                        </div>
 
-                                                    <div class="mt-6 flex justify-end">
-                                                        <x-secondary-button x-on:click="$dispatch('close')">
-                                                            {{ __('Tidak') }}
-                                                        </x-secondary-button>
+                                                        <div class="mt-6 flex justify-end">
+                                                            <x-secondary-button x-on:click="$dispatch('close')">
+                                                                {{ __('Tidak') }}
+                                                            </x-secondary-button>
 
-                                                        <x-danger-button type="submit" class="ms-3">
-                                                            {{ __('Ya') }}
-                                                        </x-danger-button>
-                                                    </div>
-                                                </form>
-                                            </x-modal>
-                                            @php
-                                                $modalName = "hapus-pesanan{$loop->iteration}";
-                                                $openModalName = "\$dispatch('open-modal', '$modalName')";
-                                            @endphp
-                                            <x-danger-button x-data=""
-                                                x-on:click.prevent="{{ $openModalName }}">
-                                                {{ __('Hapus') }}
-                                            </x-danger-button>
-                                            <x-modal name="{{ $modalName }}">
-                                                <form method="post"
-                                                    action="{{ route('pemesanan.admin.destroy', $order) }}"
-                                                    class="p-6">
-                                                    @csrf
-                                                    @method('delete')
+                                                            <x-danger-button type="submit" class="ms-3">
+                                                                {{ __('Ya') }}
+                                                            </x-danger-button>
+                                                        </div>
+                                                    </form>
+                                                </x-modal>
+                                                @php
+                                                    $modalName = "hapus-pesanan{$loop->iteration}";
+                                                    $openModalName = "\$dispatch('open-modal', '$modalName')";
+                                                @endphp
+                                                <x-danger-button x-data=""
+                                                    x-on:click.prevent="{{ $openModalName }}">
+                                                    {{ __('Hapus') }}
+                                                </x-danger-button>
+                                                <x-modal name="{{ $modalName }}">
+                                                    <form method="post"
+                                                        action="{{ route('pemesanan.admin.destroy', $order) }}"
+                                                        class="p-6">
+                                                        @csrf
+                                                        @method('delete')
 
-                                                    <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-                                                        {{ __("Apakah anda yakin ingin menghapus pesanan \"{$order->user->name}\", Sejumlah $total_harga") }}
-                                                    </h2>
+                                                        <h2
+                                                            class="text-lg font-medium text-gray-900 dark:text-gray-100">
+                                                            {{ __("Apakah anda yakin ingin menghapus pesanan \"{$order->user->name}\", Sejumlah $total_harga") }}
+                                                        </h2>
 
-                                                    <div class="mt-6 flex justify-end">
-                                                        <x-secondary-button x-on:click="$dispatch('close')">
-                                                            {{ __('Tidak') }}
-                                                        </x-secondary-button>
+                                                        <div class="mt-6 flex justify-end">
+                                                            <x-secondary-button x-on:click="$dispatch('close')">
+                                                                {{ __('Tidak') }}
+                                                            </x-secondary-button>
 
-                                                        <x-danger-button type="submit" class="ms-3">
-                                                            {{ __('Ya') }}
-                                                        </x-danger-button>
-                                                    </div>
-                                                </form>
-                                            </x-modal>
+                                                            <x-danger-button type="submit" class="ms-3">
+                                                                {{ __('Ya') }}
+                                                            </x-danger-button>
+                                                        </div>
+                                                    </form>
+                                                </x-modal>
+                                            @endif
+
                                         </td>
                                     </tr>
                                 @empty

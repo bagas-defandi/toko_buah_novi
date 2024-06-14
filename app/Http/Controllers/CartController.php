@@ -40,7 +40,7 @@ class CartController extends Controller
             ]);
         }
 
-        return to_route('index');
+        return to_route('keranjang', ['cart' => $checkCart]);
     }
 
     public function index()
