@@ -16,7 +16,7 @@
         "APP_ENV": "production",
         "APP_DEBUG": "false",
         "APP_URL": "https://toko-buah-novi.vercel.app",
-        "APP_KEY": "base64:TGaVaXwhWgjn9akhE4SCSIjGG/cQqvICUQ+PgLA3Bs0=",
+        "APP_KEY": "base64:36NBxGjfH8AwRu1JaLWE4u5W2d28V3Si2wo1IZvA+IQ=",
         "APP_CONFIG_CACHE": "/tmp/config.php",
         "APP_EVENTS_CACHE": "/tmp/events.php",
         "APP_PACKAGES_CACHE": "/tmp/packages.php",
