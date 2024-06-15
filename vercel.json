@@ -14,7 +14,7 @@
     "outputDirectory": "public",
     "env": {
         "APP_ENV": "production",
-        "APP_DEBUG": "false",
+        "APP_DEBUG": "true",
         "APP_URL": "https://toko-buah-novi.vercel.app",
         "APP_KEY": "base64:36NBxGjfH8AwRu1JaLWE4u5W2d28V3Si2wo1IZvA+IQ=",
         "APP_CONFIG_CACHE": "/tmp/config.php",
