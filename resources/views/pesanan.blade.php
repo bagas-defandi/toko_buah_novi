@@ -73,7 +73,7 @@
                         <input type="radio" id="qris" name="metode_bayar" value="qris">
                         <label for="qris">QRIS</label><br>
                     </div>
-                    <img src="{{ asset('storage/images/QRIS.png') }}" alt="QRIS Toko Buah Novi">
+                    <img src="{{ asset('images/QRIS.png') }}" alt="QRIS Toko Buah Novi">
                 </div>
                 <h2 style="font-size: 1.5rem; font-weight:bold; margin-top: 30px">Upload Bukti Bayar</h2>
                 <div class="mb-3">

@@ -1,5 +1,5 @@
 @php
-    $imgStr = 'background-image: url(/storage/images/' . $imgStr . ')';
+    $imgStr = 'background-image: url(/images/' . $imgStr . ')';
 @endphp
 <!DOCTYPE html>
 <html>

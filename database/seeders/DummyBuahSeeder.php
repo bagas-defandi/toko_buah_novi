@@ -15,7 +15,7 @@ class DummyBuahSeeder extends Seeder
     {
         Buah::create([
             'nama' => 'Jeruk Santang',
-            'gambar' => 'storage/images/TBN-1715405961-jeruk-santang.jpg',
+            'gambar' => 'images/TBN-1715405961-jeruk-santang.jpg',
             'harga' => 50000,
             'berat' => 1,
             'satuan_berat' => 'kg',
@@ -24,7 +24,7 @@ class DummyBuahSeeder extends Seeder
 
         Buah::create([
             'nama' => 'Strawberry',
-            'gambar' => 'storage/images/TBN-1715405962-buah-strowberry.jpg',
+            'gambar' => 'images/TBN-1715405962-buah-strowberry.jpg',
             'harga' => 55000,
             'berat' => 1,
             'satuan_berat' => 'kg',
@@ -33,7 +33,7 @@ class DummyBuahSeeder extends Seeder
 
         Buah::create([
             'nama' => 'Anggur',
-            'gambar' => 'storage/images/TBN-1715405963-anggur.jpg',
+            'gambar' => 'images/TBN-1715405963-anggur.jpg',
             'harga' => 40000,
             'berat' => 1,
             'satuan_berat' => 'kg',

@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-md-6 px-0">
                     <div class="img-box">
-                        <img src="{{ asset('storage/images/about-img.jpg') }}" alt="">
+                        <img src="{{ asset('images/about-img.jpg') }}" alt="">
                     </div>
                 </div>
                 <div class="col-md-5">

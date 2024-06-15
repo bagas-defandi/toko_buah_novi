@@ -22,14 +22,14 @@
 <body class="">
     <main class="min-h-screen grid grid-cols-5">
         <div style="background-color: #FFF7F5;" class="grid col-span-3">
-            <img class="w-full h-3/5" src="{{ asset('storage/images/decoration-login.png') }}" alt="">
+            <img class="w-full h-3/5" src="{{ asset('images/decoration-login.png') }}" alt="">
 
-            <img class="place-self-center h-4/5" src="{{ asset('storage/images/heading-login1.png') }}" alt="">
-            <img class="place-self-center mt-auto w-4/5" src="{{ asset('storage/images/illustration-login.png') }}"
+            <img class="place-self-center h-4/5" src="{{ asset('images/heading-login1.png') }}" alt="">
+            <img class="place-self-center mt-auto w-4/5" src="{{ asset('images/illustration-login.png') }}"
                 alt="">
         </div>
         <div class="col-span-2">
-            <img class="ml-auto w-[200px] h-[200px]" src="{{ asset('storage/images/Logo_toko.png') }}" alt="">
+            <img class="ml-auto w-[200px] h-[200px]" src="{{ asset('images/Logo_toko.png') }}" alt="">
             <div class="w-[400px] mx-auto">
                 <p class="font-bold text-gray-700 text-2xl mb-6">Senang berkenalan denganmu!</p>
                 <form method="POST" action="{{ route('register') }}">
