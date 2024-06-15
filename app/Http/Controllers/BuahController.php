@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Buah;
 use App\Models\BuahVariation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 class BuahController extends Controller
@@ -72,7 +73,7 @@ class BuahController extends Controller
             $filePath = public_path('' . $buah->gambar);
             $filePath = str_replace('\\', '/', $filePath);
             if (file_exists($filePath)) {
-                unlink($filePath);
+                File::delete($filePath);
             }
             $oriFileName = preg_replace('/\s+/', '-', $request->gambar->getClientOriginalName());
             $namaFile = 'TBN-' . time() . '-' . $oriFileName;
@@ -93,7 +94,7 @@ class BuahController extends Controller
         $filePath = public_path('' . $buah->gambar);
         $filePath = str_replace('\\', '/', $filePath);
         if (file_exists($filePath)) {
-            unlink($filePath);
+            File::delete($filePath);
         }
         $buah->delete();
         return to_route('buahs.index')->with('pesan', "Buah \"{$buah->nama}\" berhasil dihapus");

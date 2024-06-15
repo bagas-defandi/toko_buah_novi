@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
@@ -71,7 +72,7 @@ class ProfileController extends Controller
             $filePath = public_path('' . Auth::user()->gambar);
             $filePath = str_replace('\\', '/', $filePath);
             if (file_exists($filePath)) {
-                unlink($filePath);
+                File::delete($filePath);
             }
         }
 
