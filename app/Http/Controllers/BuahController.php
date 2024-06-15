@@ -35,7 +35,7 @@ class BuahController extends Controller
         // Agar nama file berbeda
         $oriFileName = preg_replace('/\s+/', '-', $request->gambar->getClientOriginalName());
         $namaFile = 'TBN-' . time() . '-' . $oriFileName;
-        $request->gambar->storeAs('public/images', $namaFile);
+        // $request->gambar->storeAs('public/images', $namaFile);
         $request->gambar->move('images', $namaFile);
 
         $validateData['gambar'] = 'images/' . $namaFile;
@@ -77,7 +77,7 @@ class BuahController extends Controller
             }
             $oriFileName = preg_replace('/\s+/', '-', $request->gambar->getClientOriginalName());
             $namaFile = 'TBN-' . time() . '-' . $oriFileName;
-            $request->gambar->storeAs('public/images', $namaFile);
+            // $request->gambar->storeAs('public/images', $namaFile);
             $request->gambar->move('images', $namaFile);
 
             $validateData['gambar'] = 'images/' . $namaFile;

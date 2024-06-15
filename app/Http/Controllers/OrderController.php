@@ -39,7 +39,7 @@ class OrderController extends Controller
         if ($request->hasFile('bukti_bayar')) {
             $oriFileName = preg_replace('/\s+/', '-', $request->bukti_bayar->getClientOriginalName());
             $namaFile = 'TBN-' . time() . '-' . $oriFileName;
-            $request->bukti_bayar->storeAs('public/images', $namaFile);
+            // $request->bukti_bayar->storeAs('public/images', $namaFile);
             $request->bukti_bayar->move('images', $namaFile);
 
             $validateData['bukti_bayar'] = 'images/' . $namaFile;
@@ -94,7 +94,7 @@ class OrderController extends Controller
 
         $oriFileName = preg_replace('/\s+/', '-', $request->bukti_bayar->getClientOriginalName());
         $namaFile = 'TBN-' . time() . '-' . $oriFileName;
-        $request->bukti_bayar->storeAs('public/images', $namaFile);
+        // $request->bukti_bayar->storeAs('public/images', $namaFile);
         $request->bukti_bayar->move('images', $namaFile);
 
         $validateData['bukti_bayar'] = 'images/' . $namaFile;
