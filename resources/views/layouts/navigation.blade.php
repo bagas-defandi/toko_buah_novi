@@ -6,7 +6,7 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('index') }}">
-                        <img class="w-[100px] h-[100px] mt-2" src="{{ asset('storage/images/Logo_toko-trans.png') }}"
+                        <img class="w-[100px] h-[100px] mt-2" src="{{ asset('images/Logo_toko-trans.png') }}"
                             alt="Logo Toko Buah Novi">
                     </a>
                 </div>

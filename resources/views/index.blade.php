@@ -1,7 +1,7 @@
 <x-layout>
     <!-- shop section -->
     <section class="shop_section layout_padding"
-        style="background-image: url(storage/images/bck.png);  background-repeat:no-repeat; background-size: cover;">
+        style="background-image: url(images/bck.png);  background-repeat:no-repeat; background-size: cover;">
         <div class="container">
             <div class="box">
                 <div class="detail-box">
@@ -12,7 +12,7 @@
                         Menyediakan buah-buahan yang berkualitas
                 </div>
                 <div class="img-box">
-                    <img src="{{ asset('storage/images/Logo_toko-removebg-preview.png') }}" alt="">
+                    <img src="{{ asset('images/Logo_toko-removebg-preview.png') }}" alt="">
                 </div>
                 <div class="btn-box">
                 </div>
@@ -29,7 +29,7 @@
             <div class="row">
                 <div class="col-md-6 px-0">
                     <div class="img-box">
-                        <img src="{{ asset('storage/images/about-img.jpg') }}" alt="">
+                        <img src="{{ asset('images/about-img.jpg') }}" alt="">
                     </div>
                 </div>
                 <div class="col-md-5">
