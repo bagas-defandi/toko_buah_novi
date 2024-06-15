@@ -29,7 +29,9 @@
                 alt="">
         </div>
         <div class="col-span-2">
-            <img class="ml-auto w-[200px] h-[200px]" src="{{ asset('images/Logo_toko.png') }}" alt="">
+            <a href="{{ route('index') }}">
+                <img class="ml-auto w-[200px] h-[200px]" src="{{ asset('images/Logo_toko.png') }}" alt="">
+            </a>
             <div style="margin-top: 10%" class="w-[400px] mx-auto">
                 <p class="font-bold text-gray-700 text-2xl mb-6">Senang bertemu denganmu!</p>
                 <form method="POST" action="{{ route('login') }}">

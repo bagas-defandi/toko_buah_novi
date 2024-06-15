@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
+    // NAMA VIEW SEHARUSNYA pemesanan
     public function index()
     {
         $cart = Cart::where('user_id', Auth::user()->id)->first();
@@ -39,8 +40,9 @@ class OrderController extends Controller
             $oriFileName = preg_replace('/\s+/', '-', $request->bukti_bayar->getClientOriginalName());
             $namaFile = 'TBN-' . time() . '-' . $oriFileName;
             $request->bukti_bayar->storeAs('public/images', $namaFile);
+            $request->bukti_bayar->move('images', $namaFile);
 
-            $validateData['bukti_bayar'] = 'storage/images/' . $namaFile;
+            $validateData['bukti_bayar'] = 'images/' . $namaFile;
         }
 
         $order =  Order::create([
@@ -67,7 +69,8 @@ class OrderController extends Controller
         }
         $cart->delete();
 
-        return view('dashboard');
+        $orders = Order::where('user_id', Auth::user()->id)->get();
+        return view('pembelian.pembeli.index', compact('orders'));
     }
 
     public function history()
@@ -92,8 +95,9 @@ class OrderController extends Controller
         $oriFileName = preg_replace('/\s+/', '-', $request->bukti_bayar->getClientOriginalName());
         $namaFile = 'TBN-' . time() . '-' . $oriFileName;
         $request->bukti_bayar->storeAs('public/images', $namaFile);
+        $request->bukti_bayar->move('images', $namaFile);
 
-        $validateData['bukti_bayar'] = 'storage/images/' . $namaFile;
+        $validateData['bukti_bayar'] = 'images/' . $namaFile;
         $order->update([
             'status_bayar' => "Sudah Bayar",
             'bukti_bayar' => $validateData['bukti_bayar'],

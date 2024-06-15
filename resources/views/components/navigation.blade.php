@@ -22,10 +22,12 @@
                         </ul>
                         <ul class="navbar-nav">
                             @auth()
-                                <li class="nav-item active">
-                                    <a class="nav-link" href="{{ route('keranjang') }}">Keranjang<span
-                                            class="sr-only">(current)</span></a>
-                                </li>
+                                @if (auth()->user()->hasRole('pembeli'))
+                                    <li class="nav-item active">
+                                        <a class="nav-link" href="{{ route('keranjang') }}">Keranjang<span
+                                                class="sr-only">(current)</span></a>
+                                    </li>
+                                @endif
                                 <li class="nav-item active">
                                     <a class="nav-link" href="{{ route('dashboard') }}">Dashboard<span
                                             class="sr-only">(current)</span></a>

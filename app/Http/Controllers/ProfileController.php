@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class ProfileController extends Controller
@@ -65,12 +66,21 @@ class ProfileController extends Controller
             'gambar' => 'file|image|max:5000'
         ]);
 
+        if (substr(Auth::user()->gambar, 0, 7) == "images/") {
+            Storage::delete('public' . substr("storage/" . Auth::user()->gambar, 7));
+            $filePath = public_path('' . Auth::user()->gambar);
+            $filePath = str_replace('\\', '/', $filePath);
+            if (file_exists($filePath)) {
+                unlink($filePath);
+            }
+        }
+
         $oriFileName = preg_replace('/\s+/', '-', $request->gambar->getClientOriginalName());
         $namaFile = 'TBN-' . time() . '-' . $oriFileName;
         $request->gambar->storeAs('public/images', $namaFile);
+        $request->gambar->move('images', $namaFile);
 
-        $validateData['gambar'] = 'storage/images/' . $namaFile;
-
+        $validateData['gambar'] = 'images/' . $namaFile;
         User::where('id', Auth::user()->id)->update($validateData);
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');

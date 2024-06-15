@@ -35,8 +35,9 @@ class BuahController extends Controller
         $oriFileName = preg_replace('/\s+/', '-', $request->gambar->getClientOriginalName());
         $namaFile = 'TBN-' . time() . '-' . $oriFileName;
         $request->gambar->storeAs('public/images', $namaFile);
+        $request->gambar->move('images', $namaFile);
 
-        $validateData['gambar'] = 'storage/images/' . $namaFile;
+        $validateData['gambar'] = 'images/' . $namaFile;
         Buah::create($validateData);
 
         return to_route('buahs.index')->with('pesan', "Buah \"{$request->nama}\" berhasil ditambah");
@@ -55,7 +56,6 @@ class BuahController extends Controller
 
     public function update(Request $request, Buah $buah)
     {
-
         $validateData = $request->validate([
             'nama' => ['required', 'string', 'max:255'],
             'harga' => ['required', 'numeric'],
@@ -66,14 +66,20 @@ class BuahController extends Controller
         ]);
 
         if (isset($request->gambar)) {
-            // Gambar di simpan dlm format -> storage/images/namaImg.jpg
-            // Untuk menghapus gambar yang disimpan kata "storage" harus dihapus maka menjadi /images/namaImg.jpg
-            Storage::delete('public' . substr($buah->gambar, 7));
+            // Gambar di simpan dlm format -> images/namaImg.jpg
+            // Untuk menghapus gambar yang disimpan kata "storage" harus dihapus maka menjadi storage/images/namaImg.jpg
+            Storage::delete('public' . substr("storage/$buah->gambar", 7));
+            $filePath = public_path('' . $buah->gambar);
+            $filePath = str_replace('\\', '/', $filePath);
+            if (file_exists($filePath)) {
+                unlink($filePath);
+            }
             $oriFileName = preg_replace('/\s+/', '-', $request->gambar->getClientOriginalName());
             $namaFile = 'TBN-' . time() . '-' . $oriFileName;
             $request->gambar->storeAs('public/images', $namaFile);
+            $request->gambar->move('images', $namaFile);
 
-            $validateData['gambar'] = 'storage/images/' . $namaFile;
+            $validateData['gambar'] = 'images/' . $namaFile;
         }
 
         Buah::where('id', $buah->id)->update($validateData);
@@ -83,7 +89,12 @@ class BuahController extends Controller
 
     public function destroy(Buah $buah)
     {
-        Storage::delete('public' . substr($buah->gambar, 7));
+        Storage::delete('public' . substr("storage/$buah->gambar", 7));
+        $filePath = public_path('' . $buah->gambar);
+        $filePath = str_replace('\\', '/', $filePath);
+        if (file_exists($filePath)) {
+            unlink($filePath);
+        }
         $buah->delete();
         return to_route('buahs.index')->with('pesan', "Buah \"{$buah->nama}\" berhasil dihapus");
     }

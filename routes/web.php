@@ -20,15 +20,22 @@ Route::prefix('/dashboard')->middleware(['auth', 'verified'])->group(function ()
     Route::delete('/staffs/{idStaff}', [StaffController::class, 'destroy'])
         ->name('staffs.destroy')->middleware(['role:admin']);
 
-    Route::get('/pemesanan-anda', [OrderController::class, 'history'])->name('pemesanan.pembeli.index')->middleware('role:pembeli');
-    Route::get('/pemesanan-anda/{idOrder}', [OrderController::class, 'show'])->name('pemesanan.pembeli.show')->middleware('role:pembeli');
-    Route::put('/kirim-bukti-bayar/{idOrder}', [OrderController::class, 'kirim_bukti'])->name('pemesanan.pembeli.kirim')->middleware('role:pembeli');
-
+    Route::resource('buahs', BuahController::class)->middleware(['role:admin|staff']);
     Route::get('/semua-pemesanan', [OrderController::class, 'all'])->name('pemesanan.admin.index')->middleware('role:admin|staff');
     Route::put('/edit-pemesanan/{order}', [OrderController::class, 'edit'])->name('pemesanan.admin.edit')->middleware('role:admin|staff');
     Route::delete('/hapus-pemesanan/{order}', [OrderController::class, 'destroy'])->name('pemesanan.admin.destroy')->middleware('role:admin|staff');
 
-    Route::resource('buahs', BuahController::class)->middleware(['role:admin|staff']);
+    Route::get('/pemesanan-anda', [OrderController::class, 'history'])->name('pemesanan.pembeli.index')->middleware('role:pembeli');
+    Route::get('/pemesanan-anda/{idOrder}', [OrderController::class, 'show'])->name('pemesanan.pembeli.show')->middleware('role:pembeli');
+    Route::put('/kirim-bukti-bayar/{idOrder}', [OrderController::class, 'kirim_bukti'])->name('pemesanan.pembeli.kirim')->middleware('role:pembeli');
+
+    Route::get('/keranjang', [CartController::class, 'index'])->name('keranjang')->middleware('role:pembeli');
+    Route::post('/tambah-keranjang', [CartController::class, 'tambahKeranjang'])->name('tambah-keranjang')->middleware('role:pembeli');
+    Route::put('/update-keranjang', [CartController::class, 'update'])->name('update-keranjang')->middleware('role:pembeli');
+    Route::delete('/hapus-keranjang/{idItem}', [CartController::class, 'delete'])->name('hapus-keranjang')->middleware('role:pembeli');
+
+    Route::get('/pesanan', [OrderController::class, 'index'])->name('pesanan')->middleware('role:pembeli');
+    Route::post('/pesanan', [OrderController::class, 'store'])->name('pesanan.store')->middleware('role:pembeli');
 });
 
 Route::middleware('auth')->group(function () {
@@ -36,14 +43,6 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::patch('/profile-image', [ProfileController::class, 'ganti'])->name('profile.update-image');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-    Route::get('/keranjang', [CartController::class, 'index'])->name('keranjang');
-    Route::post('/tambah-keranjang', [CartController::class, 'tambahKeranjang'])->name('tambah-keranjang');
-    Route::put('/update-keranjang', [CartController::class, 'update'])->name('update-keranjang');
-    Route::delete('/hapus-keranjang/{idItem}', [CartController::class, 'delete'])->name('hapus-keranjang');
-
-    Route::get('/pesanan', [OrderController::class, 'index'])->name('pesanan');
-    Route::post('/pesanan', [OrderController::class, 'store'])->name('pesanan.store');
 });
 
 // Route::view('/', 'index')->name('index');
