@@ -67,23 +67,18 @@ class ProfileController extends Controller
             'gambar' => 'file|image|max:5000'
         ]);
 
-        if (substr(Auth::user()->gambar, 0, 7) == "images/") {
-            Storage::delete('public' . substr("storage/" . Auth::user()->gambar, 7));
-            $filePath = public_path('' . Auth::user()->gambar);
-            $filePath = str_replace('\\', '/', $filePath);
-            if (file_exists($filePath)) {
-                File::delete($filePath);
-            }
+        if (substr(Auth::user()->gambar, 0, 12) == "https://toko") {
+            Storage::disk('s3')->delete(parse_url(Auth::user()->gambar));
         }
 
-        $oriFileName = preg_replace('/\s+/', '-', $request->gambar->getClientOriginalName());
-        $namaFile = 'TBN-' . time() . '-' . $oriFileName;
-        // $request->gambar->storeAs('public/images', $namaFile);
-        $request->gambar->move('images', $namaFile);
+        $gambar = $request->file('gambar');
+        $storage_res = Storage::disk('s3')->putFileAs('image', $gambar, $gambar->hashName(), [
+            'ACL' => 'public-read-write',
+        ]);
+        $url_storage = Storage::disk('s3')->url($storage_res);
+        $validateData['gambar'] = $url_storage;
 
-        $validateData['gambar'] = 'images/' . $namaFile;
         User::where('id', Auth::user()->id)->update($validateData);
-
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
 }

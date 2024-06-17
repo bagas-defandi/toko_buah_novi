@@ -14,9 +14,7 @@
     "outputDirectory": "public",
     "env": {
         "APP_ENV": "production",
-        "APP_DEBUG": "true",
         "APP_URL": "https://toko-buah-novi.vercel.app",
-        "APP_KEY": "base64:36NBxGjfH8AwRu1JaLWE4u5W2d28V3Si2wo1IZvA+IQ=",
         "APP_CONFIG_CACHE": "/tmp/config.php",
         "APP_EVENTS_CACHE": "/tmp/events.php",
         "APP_PACKAGES_CACHE": "/tmp/packages.php",
@@ -25,19 +23,6 @@
         "VIEW_COMPILED_PATH": "/tmp",
         "CACHE_DRIVER": "array",
         "LOG_CHANNEL": "stderr",
-        "SESSION_DRIVER": "cookie",
-        "MAIL_MAILER": "smtp",
-        "MAIL_HOST": "smtp.gmail.com",
-        "MAIL_PORT": "465",
-        "MAIL_USERNAME": "bagasdefandi12@gmail.com",
-        "MAIL_PASSWORD": "qhvzvekcwvlzahyn",
-        "MAIL_ENCRYPTION": "tls",
-        "MAIL_FROM_ADDRESS": "bagasdefandi12@gmail.com",
-        "MAIL_FROM_NAME": "Laravel",
-        "DB_CONNECTION": "mysql",
-        "DB_HOST": "srq.h.filess.io",
-        "DB_PORT": "3307",
-        "DB_DATABASE": "tokobuahnovi_duringdot",
-        "DB_USERNAME": "tokobuahnovi_duringdot"
+        "SESSION_DRIVER": "cookie"
     }
 }

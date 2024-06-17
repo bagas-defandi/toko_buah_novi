@@ -31,16 +31,14 @@ class BuahController extends Controller
             'gambar' => 'required|file|image|max:5000'
         ]);
 
+        $gambar = $request->file('gambar');
+        $storage_res = Storage::disk('s3')->putFileAs('image', $gambar, $gambar->hashName(), [
+            'ACL' => 'public-read-write',
+        ]);
+        $url_storage = Storage::disk('s3')->url($storage_res);
+        $validateData['gambar'] = $url_storage;
 
-        // Agar nama file berbeda
-        $oriFileName = preg_replace('/\s+/', '-', $request->gambar->getClientOriginalName());
-        $namaFile = 'TBN-' . time() . '-' . $oriFileName;
-        // $request->gambar->storeAs('public/images', $namaFile);
-        $request->gambar->move('images', $namaFile);
-
-        $validateData['gambar'] = 'images/' . $namaFile;
         Buah::create($validateData);
-
         return to_route('buahs.index')->with('pesan', "Buah \"{$request->nama}\" berhasil ditambah");
     }
 
@@ -67,35 +65,24 @@ class BuahController extends Controller
         ]);
 
         if (isset($request->gambar)) {
-            // Gambar di simpan dlm format -> images/namaImg.jpg
-            // Untuk menghapus gambar yang disimpan kata "storage" harus dihapus maka menjadi storage/images/namaImg.jpg
-            Storage::delete('public' . substr("storage/$buah->gambar", 7));
-            $filePath = public_path('' . $buah->gambar);
-            $filePath = str_replace('\\', '/', $filePath);
-            if (file_exists($filePath)) {
-                File::delete($filePath);
-            }
-            $oriFileName = preg_replace('/\s+/', '-', $request->gambar->getClientOriginalName());
-            $namaFile = 'TBN-' . time() . '-' . $oriFileName;
-            // $request->gambar->storeAs('public/images', $namaFile);
-            $request->gambar->move('images', $namaFile);
+            Storage::disk('s3')->delete(parse_url($buah->gambar));
 
-            $validateData['gambar'] = 'images/' . $namaFile;
+            $gambar = $request->file('gambar');
+            $storage_res = Storage::disk('s3')->putFileAs('image', $gambar, $gambar->hashName(), [
+                'ACL' => 'public-read-write',
+            ]);
+            $url_storage = Storage::disk('s3')->url($storage_res);
+
+            $validateData['gambar'] = $url_storage;
         }
 
         Buah::where('id', $buah->id)->update($validateData);
-
         return to_route('buahs.index')->with('pesan', "Buah \"{$request->nama}\" berhasil diubah");
     }
 
     public function destroy(Buah $buah)
     {
-        Storage::delete('public' . substr("storage/$buah->gambar", 7));
-        $filePath = public_path('' . $buah->gambar);
-        $filePath = str_replace('\\', '/', $filePath);
-        if (file_exists($filePath)) {
-            File::delete($filePath);
-        }
+        Storage::disk('s3')->delete(parse_url($buah->gambar));
         $buah->delete();
         return to_route('buahs.index')->with('pesan', "Buah \"{$buah->nama}\" berhasil dihapus");
     }

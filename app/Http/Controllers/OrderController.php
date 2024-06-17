@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\OrderDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class OrderController extends Controller
 {
@@ -24,6 +25,12 @@ class OrderController extends Controller
         return view('pembelian.pembeli.show', ['order' => $order]);
     }
 
+    public function show_admin(Order $order)
+    {
+        // dd($order->user->name);
+        return view('pembelian.admin-staff.show', ['order' => $order]);
+    }
+
     public function store(Request $request)
     {
         $validateData = $request->validate([
@@ -37,12 +44,12 @@ class OrderController extends Controller
         $status_bayar = $request->hasFile('bukti_bayar') ? "Sudah Bayar" : "Belum Bayar";
 
         if ($request->hasFile('bukti_bayar')) {
-            $oriFileName = preg_replace('/\s+/', '-', $request->bukti_bayar->getClientOriginalName());
-            $namaFile = 'TBN-' . time() . '-' . $oriFileName;
-            // $request->bukti_bayar->storeAs('public/images', $namaFile);
-            $request->bukti_bayar->move('images', $namaFile);
-
-            $validateData['bukti_bayar'] = 'images/' . $namaFile;
+            $bukti_bayar = $request->file('bukti_bayar');
+            $storage_res = Storage::disk('s3')->putFileAs('image', $bukti_bayar, $bukti_bayar->hashName(), [
+                'ACL' => 'public-read-write',
+            ]);
+            $url_storage = Storage::disk('s3')->url($storage_res);
+            $validateData['bukti_bayar'] = $url_storage;
         }
 
         $order =  Order::create([
@@ -92,12 +99,13 @@ class OrderController extends Controller
             'bukti_bayar' => 'required|file|image|max:5000'
         ]);
 
-        $oriFileName = preg_replace('/\s+/', '-', $request->bukti_bayar->getClientOriginalName());
-        $namaFile = 'TBN-' . time() . '-' . $oriFileName;
-        // $request->bukti_bayar->storeAs('public/images', $namaFile);
-        $request->bukti_bayar->move('images', $namaFile);
+        $bukti_bayar = $request->file('bukti_bayar');
+        $storage_res = Storage::disk('s3')->putFileAs('image', $bukti_bayar, $bukti_bayar->hashName(), [
+            'ACL' => 'public-read-write',
+        ]);
+        $url_storage = Storage::disk('s3')->url($storage_res);
+        $validateData['bukti_bayar'] = $url_storage;
 
-        $validateData['bukti_bayar'] = 'images/' . $namaFile;
         $order->update([
             'status_bayar' => "Sudah Bayar",
             'bukti_bayar' => $validateData['bukti_bayar'],

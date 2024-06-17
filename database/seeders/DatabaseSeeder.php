@@ -21,6 +21,6 @@ class DatabaseSeeder extends Seeder
         // ]);
         $this->call(RolePermissionSeeder::class);
         $this->call(UserSeeder::class);
-        $this->call(DummyBuahSeeder::class);
+        // $this->call(DummyBuahSeeder::class);
     }
 }

@@ -34,7 +34,7 @@
                                         <td>{{ $order->user->name }}</td>
                                         <td class="whitespace-nowrap px-6 py-4">
                                             <a class="underline underline-offset-4"
-                                                href="{{ route('pemesanan.pembeli.show', $order->id) }}">
+                                                href="{{ route('pemesanan.admin.show', $order->id) }}">
                                                 {{ $total_harga }}
                                             </a>
                                         </td>
