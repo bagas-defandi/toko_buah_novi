@@ -43,7 +43,7 @@ class RegisteredUserController extends Controller
             'no_telp' => $request->no_telp,
             'alamat' => $request->alamat,
             'password' => Hash::make($request->password),
-        ]);
+        ])->assignRole('pembeli');
 
         event(new Registered($user));
 
