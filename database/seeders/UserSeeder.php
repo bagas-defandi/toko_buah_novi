@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Cart;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -22,7 +23,7 @@ class UserSeeder extends Seeder
             'password' => bcrypt('admin123'),
         ])->assignRole('admin');
 
-        User::create([
+        $pembeli = User::create([
             'name' => 'Bagas',
             'email' => 'bagasdefandi31@gmail.com',
             'no_telp' => '082180246367',
@@ -30,5 +31,11 @@ class UserSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => bcrypt('bagas123'),
         ])->assignRole('pembeli');
+
+        Cart::create([
+            'jumlah_produk' => 0,
+            'total_harga' => 0,
+            'user_id' => $pembeli->id,
+        ]);
     }
 }

@@ -8,7 +8,9 @@
                     <h2>
                         Keranjang anda
                     </h2>
-                    <button type="submit" class="btn-primary ml-auto py-2 px-4">Update Keranjang</button>
+                    @if ($cart->jumlah_produk > 0)
+                        <button type="submit" class="btn-primary ml-auto py-2 px-4">Update Keranjang</button>
+                    @endif
                 </div>
 
                 <div class="table-responsive">
@@ -53,9 +55,11 @@
                     </table>
                 </div>
             </form>
-            <div class="d-flex justify-content-end">
-                <a href="{{ route('pesanan') }}" class="btn-success px-4 py-2 text-white">Pesan Sekarang</a>
-            </div>
+            @if ($cart->jumlah_produk > 0)
+                <div class="d-flex justify-content-end">
+                    <a href="{{ route('pesanan') }}" class="btn-success px-4 py-2 text-white">Pesan Sekarang</a>
+                </div>
+            @endif
         </div>
     </section>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -65,7 +69,6 @@
                 .then(function(response) {
                     // Handle success, maybe show a success message
                     // alert('Item deleted successfully.');
-                    location.reload();
                     location.reload();
                     // console.log(response);
                 })

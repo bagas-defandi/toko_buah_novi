@@ -17,7 +17,12 @@
                     <img src="{{ asset($buah->gambar) }}" style="width: 500px ; border-radius: 60px;">
                 </div>
                 @auth()
-                    @if (auth()->user()->hasRole('pembeli'))
+                    @if (session()->has('pesan'))
+                        <div id="pesan" class="alert alert-danger mt-4">
+                            <div> {!! session()->get('pesan') !!}</div>
+                        </div>
+                    @endif
+                    @if (auth()->user()->hasRole('pembeli') && $buah->stok > 0)
                         <form method="POST" action="{{ route('tambah-keranjang') }}" class="btn-box">
                             @csrf
                             <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
@@ -30,6 +35,9 @@
                                 Tambah Keranjang
                             </button>
                         </form>
+                    @endif
+                    @if ($buah->stok == 0)
+                        <p style="font-weight: bold; font-size: 2rem; color:red;" class="mt-4">STOK HABIS</p>
                     @endif
                 @endauth
             </div>

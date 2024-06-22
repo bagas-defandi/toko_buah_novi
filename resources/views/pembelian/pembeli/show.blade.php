@@ -5,7 +5,7 @@
                 {{ __('Detail Pemesanan') }}
             </h2>
             @if ($order->bukti_bayar)
-                <div></div>
+                <div class="text-green-600 font-bold">SUDAH BAYAR</div>
             @else
                 <button type="submit" x-data=""
                     x-on:click.prevent="$dispatch('open-modal', 'upload_bukti_bayar')"
@@ -100,6 +100,11 @@
                         </table>
                     </div>
                 </div>
+                @if ($order->bukti_bayar)
+                    <div class=""></div>
+                @else
+                    <img class="h-[700px] mt-14 mx-auto" src="{{ asset('images/QRIS.png') }}" alt="">
+                @endif
             </div>
         </div>
     </div>

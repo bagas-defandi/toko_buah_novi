@@ -13,34 +13,27 @@ class CartController extends Controller
 {
     public function tambahKeranjang(Request $request)
     {
-        $checkCart = Cart::where('user_id', Auth::user()->id)->first();
+        $cart = Cart::where('user_id', Auth::user()->id)->first();
         $total_harga = $request->harga_buah * $request->kuantitas;
 
-        if ($checkCart) {
-            $checkCart->update([
-                'jumlah_produk' => $checkCart->jumlah_produk + 1,
-                'total_harga' => $checkCart->total_harga + $total_harga,
-            ]);
-            CartItem::create([
-                'kuantitas' => $request->kuantitas,
-                'cart_id' => $checkCart->id,
-                'buah_id' => $request->buah_id,
-            ]);
-        } else {
-            $cart = Cart::create([
-                'jumlah_produk' => 1,
-                'total_harga' => $total_harga,
-                'user_id' => $request->user_id,
-            ]);
-
-            CartItem::create([
-                'kuantitas' => $request->kuantitas,
-                'cart_id' => $cart->id,
-                'buah_id' => $request->buah_id,
-            ]);
+        $existingCartItem = CartItem::where('cart_id', $cart->id)
+            ->where('buah_id', $request->buah_id)
+            ->first();
+        if ($existingCartItem) {
+            $pesan = 'Buah sudah ada dalam keranjang, silahkan update dari <a href="' . route('keranjang') . '">halaman keranjang</a>';
+            return back()->with('pesan', $pesan)->withFragment('pesan');
         }
+        $cart->update([
+            'jumlah_produk' => $cart->jumlah_produk + 1,
+            'total_harga' => $cart->total_harga + $total_harga,
+        ]);
+        CartItem::create([
+            'kuantitas' => $request->kuantitas,
+            'cart_id' => $cart->id,
+            'buah_id' => $request->buah_id,
+        ]);
 
-        return to_route('keranjang', ['cart' => $checkCart]);
+        return to_route('keranjang', ['cart' => $cart]);
     }
 
     public function index()
@@ -60,7 +53,7 @@ class CartController extends Controller
             $total_harga = $total_harga + ($item->buah->harga * $item->kuantitas);
         }
         $cart->update(['total_harga' => $total_harga]);
-        return view('keranjang', ['cart' => $cart]);
+        return to_route('keranjang', ['cart' => $cart]);
     }
 
     public function delete(int $idItem)
@@ -70,11 +63,11 @@ class CartController extends Controller
 
         $cart->update([
             'jumlah_produk' => $cart->jumlah_produk - 1,
-            'total_harga' => $cart->total_harga - $cartItem->buah->harga,
+            'total_harga' => $cart->total_harga - ($cartItem->buah->harga * $cartItem->kuantitas),
         ]);
 
         $cartItemController = App::make(CartItemController::class);
         $cartItemController->destroy($idItem);
-        return view('keranjang', ['cart' => $cart]);
+        return to_route('keranjang', ['cart' => $cart]);
     }
 }

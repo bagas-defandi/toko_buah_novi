@@ -63,6 +63,11 @@ class OrderController extends Controller
             'user_id' => Auth::user()->id,
         ]);
 
+        $cart->update([
+            'jumlah_produk' => $cart->jumlah_produk - $cartItems->count(),
+            'total_harga' => 0,
+        ]);
+
         foreach ($cartItems as $item) {
             OrderDetail::create([
                 'kuantitas' => $item->kuantitas,
@@ -74,10 +79,9 @@ class OrderController extends Controller
             ]);
             $item->delete();
         }
-        $cart->delete();
 
         $orders = Order::where('user_id', Auth::user()->id)->get();
-        return view('pembelian.pembeli.index', compact('orders'));
+        return to_route('pemesanan.pembeli.index', compact('orders'));
     }
 
     public function history()

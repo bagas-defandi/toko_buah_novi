@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cart;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -44,6 +45,12 @@ class RegisteredUserController extends Controller
             'alamat' => $request->alamat,
             'password' => Hash::make($request->password),
         ])->assignRole('pembeli');
+
+        Cart::create([
+            'jumlah_produk' => 0,
+            'total_harga' => 0,
+            'user_id' => $user->id,
+        ]);
 
         event(new Registered($user));
 

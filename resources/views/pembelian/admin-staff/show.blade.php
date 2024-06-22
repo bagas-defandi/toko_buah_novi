@@ -6,6 +6,7 @@
                 Atas Nama: <span class="font-light">{{ $order->user->name }}</span> <br>
                 Alamat: <span class="font-light">{{ $order->user->alamat }}</span> <br>
             </h2>
+            <p class="font-bold text-2xl">Rp.{{ number_format($order->total_harga, 0, ',', '.') }}</p>
         </div>
     </header>
 
